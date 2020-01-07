@@ -5,7 +5,6 @@ from re import search
 from numbers import Number
 # Flask Lib
 from flask import current_app, g
-#from utl.apistuff import pullcountries
 
 """
     This module deals with interaction with the database
@@ -30,5 +29,18 @@ def setup():
                 interests TEXT,
                 admin BOOLEAN
                 );""")
-
+    c.execute("""CREATE TABLE IF NOT EXISTS opportunities (
+                opid INTEGER PRIMARY KEY AUTOINCREMENT,
+                username TEXT UNIQUE NOT NULL,
+                organization TEXT,
+                position TEXT,
+                interests TEXT,
+                description TEXT,
+                grades TEXT,
+                location TEXT,
+                duedate TEXT,
+                posted TIMESTAMP,
+                dates TEXT
+                );""")
+    )
     c.close()
