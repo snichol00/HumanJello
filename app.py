@@ -9,9 +9,17 @@ app.secret_key = os.urandom(32)
 
 DB_FILE = "HumanJello.db"
 
-db = sqlite3.connect(DB_FILE, check_same_thread=False) #open if file exists, otherwise create
-c = db.cursor() #facilitate db operations
+# open if file exists, otherwise create
+db = sqlite3.connect(DB_FILE, check_same_thread=False)
+c = db.cursor()  # facilitate db operations
+
+
+@app.route('/admin/<username>')
+def admin(username):
+    c.execute('SELECT * FROM opportunities')
+    return render_template('admin.html')
+
 
 if __name__ == "__main__":
-    app.debug = True;
+    app.debug = True
     app.run()
