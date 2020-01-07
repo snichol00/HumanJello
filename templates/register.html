@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block header %}
+  {%block title%}  {%endblock%}
+{% endblock %}
+
+{% block body %}
+{% for message in get_flashed_messages() %}
+  <i>{{ message }}</i>
+  <br>
+{% endfor %}
+<center>
+  {% if student %}
+    <h3>Create Student Account</h3>
+    <br>
+  {% endif %}
+<form action="/registerStudent" method="POST">
+  Create an account: <br>
+  <div style="width:50%">
+  <label for="username">Username</label>
+  <input type="text" name="username" required>
+  <br>
+  <label for="password">Password</label>
+  <input type="password" name="password" required>
+  <br>
+  <label for="password2">Confirm Password</label>
+  <input type="password" name="password2" required>
+  <br>
+  <input type="submit" name="register-button" value="Sign Up">
+  <p>Already have an account? <a href="/login">Log In</a></p>
+  </div>
+</form>
+</center>
+{% endblock %}
