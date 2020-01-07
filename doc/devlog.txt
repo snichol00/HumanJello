@@ -1,0 +1,11 @@
+Human Jello: Sophie Nichol, Lauren Pehlivanian, Winston Peng, Jason Zheng
+P#02: The End
+SoftDev1 Pd9
+2020-1-06
+
+nicholS -- 2020-1-6 20:06
+- Revised design doc
+- made corrections to database tables and made the instructions clearer
+
+nicholS -- 2020-1-5 22:38
+- Uploaded first version of the design doc
