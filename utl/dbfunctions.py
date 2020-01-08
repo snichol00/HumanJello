@@ -12,7 +12,7 @@ from flask import current_app, g
 """
 
 
-DB_FILE = "data/database.db"
+DB_FILE = "HumanJello.db"
 
 # setting up the database
 def setup():
@@ -41,7 +41,6 @@ def setup():
                 posted TEXT,
                 dates TEXT
                 );""")
-    )
     c.close()
 
 # insert an opportunity into the database
