@@ -22,7 +22,7 @@ def setup():
                 userid INTEGER PRIMARY KEY AUTOINCREMENT,
                 username TEXT UNIQUE NOT NULL,
                 hashpassword TEXT NOT NULL,
-                displayname TEXT NOT NULL,
+                displayname TEXT,
                 osis INTEGER,
                 email TEXT NOT NULL,
                 grade TEXT,
@@ -49,11 +49,14 @@ def insertOp(org, pos, int, des, gra, loc, due, post, dat):
     db.commit()
     c.close()
 
-def addUser(user, hashp, disp, osisNum, emailAcc, gra, inter, adm):
-    c.execute("INSERT into opportunities (username, hashpassword, displayname, osis, email, grade, interests, admin) VALUES(?, ?);", (user, hashp, disp, osisNum, emailAcc, gra, inter, adm))
+def addStudent(user, hashp, disp, osisNum, emailAcc, gra, inter):
+    c.execute("INSERT into users (username, hashpassword, displayname, osis, email, grade, interests, admin) VALUES(?, ?);", (user, hashp, disp, osisNum, emailAcc, gra, inter, False))
     db.commit()
     c.close()
-}
+
+def addAdmin(user, hashp, emailAcc):
+    c.execute("INSERT INTO users (username, hashpassword, email, admin) VALUES(?, ?);", (user, hasp, email, True))
+
 
 def update_user(username, field, newvalue):
     c.execute("UPDATE users SET %s = '%s' WHERE username = '%s'" % (
