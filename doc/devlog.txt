@@ -3,9 +3,8 @@ P#02: The End
 SoftDev1 Pd9
 2020-1-06
 
-nicholS -- 2020-1-7 23:07
-- Created database
-- Created a function to add an opportunities post to the database
+nicholS -- 2020-1-5 22:38
+- Uploaded first version of the design doc
 
 nicholS -- 2020-1-6 20:06
 - Revised design doc
@@ -13,5 +12,12 @@ nicholS -- 2020-1-6 20:06
 - clarified points where people were confused
 - revised formatting
 
-nicholS -- 2020-1-5 22:38
-- Uploaded first version of the design doc
+nicholS -- 2020-1-7 23:07
+- Created database
+- Created a function to add an opportunities post to the database
+
+pehlivanianL -- 2020-1-7 14:46
+- Created Flask app and added base code to the app.
+- Created root page in app, where user can select whether to login as student or admin.
+- Copied and reformatted register code from old project.
+- Made HTML templates for base.html, route, and register pages.
