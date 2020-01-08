@@ -31,7 +31,6 @@ def setup():
                 );""")
     c.execute("""CREATE TABLE IF NOT EXISTS opportunities (
                 opid INTEGER PRIMARY KEY AUTOINCREMENT,
-                username TEXT UNIQUE NOT NULL,
                 organization TEXT,
                 position TEXT,
                 interests TEXT,
@@ -39,8 +38,16 @@ def setup():
                 grades TEXT,
                 location TEXT,
                 duedate TEXT,
-                posted TIMESTAMP,
+                posted TEXT,
                 dates TEXT
                 );""")
     )
+    c.close()
+
+# insert an opportunity into the database
+def insertOp(org, pos, int, des, gra, loc, due, pos, dat):
+    db = sqlite3.connect(DB_FILE) #open if file exists, otherwise create
+    c = db.cursor()
+    c.execute("INSERT into opportunities (organization, position, interests, description, grades, location, duedate, posted, dates) VALUES(?, ?);", (org, pos, int, des, gra, loc, due, pos, dat))
+    db.commit()
     c.close()

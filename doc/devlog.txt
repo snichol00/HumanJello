@@ -3,9 +3,15 @@ P#02: The End
 SoftDev1 Pd9
 2020-1-06
 
+nicholS -- 2020-1-7 23:07
+- Created database
+- Created a function to add an opportunities post to the database
+
 nicholS -- 2020-1-6 20:06
 - Revised design doc
-- made corrections to database tables and made the instructions clearer
+- made corrections to database tables (merged admins and users table)
+- clarified points where people were confused
+- revised formatting
 
 nicholS -- 2020-1-5 22:38
 - Uploaded first version of the design doc
