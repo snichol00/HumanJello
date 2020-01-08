@@ -1,4 +1,4 @@
-# Stuyvesant Opportunities Bulletin
+# Study Bullet
 
 Created by Team HumanJello, pd 9
 

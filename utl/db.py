@@ -41,12 +41,13 @@ def setup():
                 posted TEXT,
                 dates TEXT
                 );""")
-    )
     c.close()
 
+
 # insert an opportunity into the database
-def insertOp(org, pos, int, des, gra, loc, due, pos, dat):
-    db = sqlite3.connect(DB_FILE) #open if file exists, otherwise create
+def insertOp(org, pos, int, des, gra, loc, due, dat):
+    """ insert an opportunity into the database """
+    db = sqlite3.connect(DB_FILE)  # open if file exists, otherwise create
     c = db.cursor()
     c.execute("INSERT into opportunities (organization, position, interests, description, grades, location, duedate, posted, dates) VALUES(?, ?);", (org, pos, int, des, gra, loc, due, pos, dat))
     db.commit()
@@ -58,7 +59,7 @@ def addUser(user, hashp, disp, osisNum, emailAcc, gra, inter, adm):
     c.execute("INSERT into opportunities (username, hashpassword, displayname, osis, email, grade, interests, admin) VALUES(?, ?);", (user, hashp, disp, osisNum, emailAcc, gra, inter, adm))
     db.commit()
     c.close()
-}
+
 
 def update_user(username, field, newvalue):
     db = sqlite3.connect(DB_FILE)
