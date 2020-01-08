@@ -12,7 +12,7 @@ from flask import current_app, g
 """
 
 
-DB_FILE = "data/database.db"
+DB_FILE = "HumanJello.db"
 
 # setting up the database
 def setup():
@@ -23,7 +23,7 @@ def setup():
                 username TEXT UNIQUE NOT NULL,
                 hashpassword TEXT NOT NULL,
                 displayname TEXT NOT NULL,
-                OSIS INTEGER,
+                osis INTEGER,
                 email TEXT NOT NULL,
                 grade TEXT,
                 interests TEXT,
@@ -51,3 +51,24 @@ def insertOp(org, pos, int, des, gra, loc, due, pos, dat):
     c.execute("INSERT into opportunities (organization, position, interests, description, grades, location, duedate, posted, dates) VALUES(?, ?);", (org, pos, int, des, gra, loc, due, pos, dat))
     db.commit()
     c.close()
+
+def addUser(user, hashp, disp, osisNum, emailAcc, gra, inter, adm):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("INSERT into opportunities (username, hashpassword, displayname, osis, email, grade, interests, admin) VALUES(?, ?);", (user, hashp, disp, osisNum, emailAcc, gra, inter, adm))
+    db.commit()
+    c.close()
+}
+
+def update_user(username, field, newvalue):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("UPDATE users SET %s = '%s' WHERE username = '%s'" % (
+                field,
+                newvalue,
+                username
+            )
+        )
+    db.commit()
+    c.close()
+    return "Success"
