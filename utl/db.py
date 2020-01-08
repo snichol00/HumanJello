@@ -12,7 +12,7 @@ from flask import current_app, g
 """
 
 
-DB_FILE = "data/database.db"
+DB_FILE = "HumanJello.db"
 
 # setting up the database
 def setup():
@@ -51,3 +51,5 @@ def insertOp(org, pos, int, des, gra, loc, due, pos, dat):
     c.execute("INSERT into opportunities (organization, position, interests, description, grades, location, duedate, posted, dates) VALUES(?, ?);", (org, pos, int, des, gra, loc, due, pos, dat))
     db.commit()
     c.close()
+
+def getOp()
