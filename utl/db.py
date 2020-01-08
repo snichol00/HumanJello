@@ -23,7 +23,7 @@ def setup():
                 username TEXT UNIQUE NOT NULL,
                 hashpassword TEXT NOT NULL,
                 displayname TEXT NOT NULL,
-                OSIS INTEGER,
+                osis INTEGER,
                 email TEXT NOT NULL,
                 grade TEXT,
                 interests TEXT,
@@ -52,4 +52,23 @@ def insertOp(org, pos, int, des, gra, loc, due, pos, dat):
     db.commit()
     c.close()
 
-def getOp()
+def addUser(user, hashp, disp, osisNum, emailAcc, gra, inter, adm):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("INSERT into opportunities (username, hashpassword, displayname, osis, email, grade, interests, admin) VALUES(?, ?);", (user, hashp, disp, osisNum, emailAcc, gra, inter, adm))
+    db.commit()
+    c.close()
+}
+
+def update_user(username, field, newvalue):
+    db = sqlite3.connect(DB_FILE)
+    c = db.cursor()
+    c.execute("UPDATE users SET %s = '%s' WHERE username = '%s'" % (
+                field,
+                newvalue,
+                username
+            )
+        )
+    db.commit()
+    c.close()
+    return "Success"
