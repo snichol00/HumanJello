@@ -51,7 +51,8 @@ def registerstudent():
             return redirect(url_for(register_route))
 
         else: #successfully created an account
-            c.execute("INSERT INTO users VALUES (NULL, ?, ?)", (username, password))
+            if student:
+                #dbfunctions.addStudent(username, password, )
             #dbfunctions.newUserTable(c, username)
             db.commit()
             flash("Successfuly created user")
