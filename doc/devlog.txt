@@ -12,6 +12,12 @@ nicholS -- 2020-1-6 20:06
 - clarified points where people were confused
 - revised formatting
 
+zhengJ -- 2020-1-7 14:34
+- researched Google Calendar API
+
+pengW -- 2020-1-7 14:45
+- added gitignore and worked on making accounts
+
 nicholS -- 2020-1-7 23:07
 - Created database
 - Created a function to add an opportunities post to the database
