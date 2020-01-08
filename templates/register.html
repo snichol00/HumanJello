@@ -5,17 +5,25 @@
 {% endblock %}
 
 {% block body %}
-{% for message in get_flashed_messages() %}
-  <i>{{ message }}</i>
-  <br>
-{% endfor %}
-<center>
+
+  {% for message in get_flashed_messages() %}
+    <i>{{ message }}</i>
+    <br>
+  {% endfor %}
+
+  <center>
   {% if student %}
     <h3>Create Student Account</h3>
     <br>
+    <form action="/register" method="POST">
   {% endif %}
-<form action="/registerStudent" method="POST">
-  Create an account: <br>
+
+  {% if admin %}
+    <h3>Create Student Account</h3>
+    <br>
+    <form action="/register" method="POST">
+  {% endif %}
+
   <div style="width:50%">
   <label for="username">Username</label>
   <input type="text" name="username" required>
@@ -26,6 +34,10 @@
   <label for="password2">Confirm Password</label>
   <input type="password" name="password2" required>
   <br>
+  {% if admin %}
+  <label for="adminCode">Admin Code</label>
+  <input type="text" name="adminCode" required>
+  {% endif %}
   <input type="submit" name="register-button" value="Sign Up">
   <p>Already have an account? <a href="/login">Log In</a></p>
   </div>
