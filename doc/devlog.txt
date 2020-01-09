@@ -27,3 +27,11 @@ pehlivanianL -- 2020-1-7 14:46
 - Created root page in app, where user can select whether to login as student or admin.
 - Copied and reformatted register code from old project.
 - Made HTML templates for base.html, route, and register pages.
+
+pehlivanianL -- 2020-01-08 14:48
+- Continued working on student and admin login. Added admin code field for form and edited register function to differentiate between student and admins.
+- Edited register html page so that it has different headings and form fields depending on student or admin.
+
+pehlivanianL -- 2020-01-09 02:36
+- Created studentinfo.html template with form for student to enter basic info after creating account.
+- Created routes in app.py to display and handle the form data. Haven't tested yet.
