@@ -19,10 +19,7 @@ We are creating an opportunities bulletin that will improve on the document that
 ## Launch Instructions:
 
  1) Clone repository with SSH key:
- 
- '''
   $ https://github.com/snichol00/HumanJello.git
-  '''
   
  2) Enter the repository
   $ cd HumanJello
