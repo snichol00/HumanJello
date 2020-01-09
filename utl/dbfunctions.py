@@ -41,21 +41,16 @@ def setup():
                 posted TEXT,
                 dates TEXT
                 );""")
-    c.close()
 
 # insert an opportunity into the database
 def insertOp(org, pos, int, des, gra, loc, due, post, dat):
     c.execute("INSERT into opportunities (organization, position, interests, description, grades, location, duedate, posted, dates) VALUES(?, ?);", (org, pos, int, des, gra, loc, due, pos, dat))
     db.commit()
-    c.close()
 
 def addStudent(user, hashp, disp, osisNum, emailAcc, gra, inter):
     c.execute("INSERT into users (username, hashpassword, displayname, osis, email, grade, interests, admin) VALUES(?, ?);", (user, hashp, disp, osisNum, emailAcc, gra, inter, False))
     db.commit()
-    c.close()
 
-def setGrade(user, grade):
-    c.execute("UPDATE users SET grade = ?;", (grade,))
 
 def addAdmin(user, hashp, emailAcc):
     c.execute("INSERT INTO users (username, hashpassword, email, admin) VALUES(?, ?);", (user, hasp, email, True))
@@ -69,5 +64,4 @@ def update_user(username, field, newvalue):
             )
         )
     db.commit()
-    c.close()
     return "Success"
