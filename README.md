@@ -5,11 +5,11 @@ Created by Team HumanJello, pd 9
 ## Our Team:
 * Sophie Nichol - Project Manager
 * Lauren Pehlivanian - Student Account Manager
-* Winston Peng - 
+* Winston Peng - Admin Account Manager
 * Jason Zheng - API Expert
 
 ## Our Project:
-We are creating an opportunities bulletin that will improve on the document that Mr. Blumm emails on a weekly basis. It will list internship and job opportunities that are available to students at Stuyvesant High School depending on filters that the user will choose. They will be able to filter the results based on location, grades eligible, areas of interest, when it was posted, and when they want to participate in the program. The app will help Stuyvesant High School Students be more engaged in the Stuyvesant and local communities.
+We are creating an opportunities bulletin that will improve on the document that Mr. Blumm emails on a weekly basis. It will list internship and job opportunities that are available to students at Stuyvesant High School depending on filters that the user will choose. They will be able to filter the results based on location, grades eligible, areas of interest, when it was posted, and when they want to participate in the program. The app will help Stuyvesant High School students be more engaged in the Stuyvesant and local communities.
 
 ## Our APIs:
 * Google Calendar API
@@ -19,7 +19,10 @@ We are creating an opportunities bulletin that will improve on the document that
 ## Launch Instructions:
 
  1) Clone repository with SSH key:
+ 
+ '''
   $ https://github.com/snichol00/HumanJello.git
+  '''
   
  2) Enter the repository
   $ cd HumanJello
