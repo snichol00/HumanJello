@@ -8,9 +8,11 @@ app = Flask(__name__)
 app.secret_key = os.urandom(32)
 
 DB_FILE = "HumanJello.db"
-#setup databases:
-db = sqlite3.connect(DB_FILE, check_same_thread=False) #open if file exists, otherwise create
-c = db.cursor() #facilitate db operations
+
+"""Setup databases"""
+# open if file exists, otherwise create
+db = sqlite3.connect(DB_FILE, check_same_thread=False)
+c = db.cursor()  # facilitate db operations
 dbfunctions.setup()
 
 
@@ -66,22 +68,25 @@ def register():
         username = request.form['username']
         password = request.form['password']
         password2 = request.form['password2']
+        # TODO: Finish next line
         c.execute("SELECT username FROM users WHERE username = ?", (username, ))
         a = c.fetchone()
-        if a != None: #checks for duplicate usernames
+        if a is not None:  # checks for duplicate usernames
             flash("Account with that username already exists")
             return redirect(url_for(register_route))
-        elif " " in username: #checks for spaces cause spaces suck
+        elif " " in username:  # checks for spaces cause spaces suck
             flash("Username cannot contain spaces")
             return redirect(url_for(register_route))
-        elif password != password2: #checks if both passwords are the same
+        elif password != password2:  # checks if both passwords are the same
             flash("Passwords do not match")
             return redirect(url_for(register_route))
-        elif len(password) < 8: #passwords must have a minimum length of 8
+        elif len(password) < 8:  # passwords must have a minimum length of 8
             flash("Password must be at least 8 characters in length")
             return redirect(url_for(register_route))
 
-        else: #successfully created an account
+        else:  # successfully created an account
+            c.execute("INSERT INTO users VALUES (NULL, ?, ?)", (username, password))
+            dbfunctions.newUserTable(c, username)
             if student:
                 dbfunctions.createStudent(c, username, password)
                 db.commit()
@@ -125,6 +130,12 @@ def auth():
 def welcome():
     return "Welome!"
 
+@app.route('/admin/<username>')
+def admin(username):
+    c.execute('SELECT * FROM opportunities')
+    return render_template('admin.html')
+
+
 if __name__ == "__main__":
-    app.debug = True;
+    app.debug = True
     app.run()

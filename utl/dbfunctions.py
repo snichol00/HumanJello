@@ -42,6 +42,7 @@ def setup():
                 dates TEXT
                 );""")
 
+
 # insert an opportunity into the database
 def insertOp(c, org, pos, int, des, gra, loc, due, post, dat):
     c.execute("INSERT into opportunities (organization, position, interests, description, grades, location, duedate, posted, dates) VALUES(?, ?);", (org, pos, int, des, gra, loc, due, pos, dat))
@@ -54,7 +55,7 @@ def createStudent(c, user, hashp):
 
 
 def addAdmin(c, user, hashp, emailAcc):
-    c.execute("INSERT INTO users (username, hashpassword, email, admin) VALUES(?, ?);", (user, hasp, email, True))
+    c.execute("INSERT INTO users (username, hashpassword, email, admin) VALUES(?, ?, ?, ?);", (user, hasp, email, True))
 
 
 def update_user(c, username, field, newvalue):
