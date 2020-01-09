@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, session, flash, request
-import json
-import sqlite3, os, requests
-from utl import dbfunctions
+import json, sys
+import sqlite3, os
+from utl.dbfunctions import *
 
 app = Flask(__name__)
 
@@ -21,6 +21,19 @@ def root():
 @app.route("/studentAccount")
 def studacc():
     return render_template("register.html", student=True);
+
+@app.route("/studentInfo")
+def studentInfo():
+    return render_template("studentinfo.html", username=username)
+
+@app.route("/createStudent")
+def createStudent():
+    if request.method=="POST":
+        displayname = request.form['displayname']
+        grade = request.form['grade']
+        osis = request.form['osis']
+        email = request.form['email']
+        dbfunctions.setGrade(username, grade)
 
 @app.route("/register", methods=["POST"])
 def registerstudent():
@@ -52,7 +65,8 @@ def registerstudent():
 
         else: #successfully created an account
             if student:
-                #dbfunctions.addStudent(username, password, )
+                dbfunctions.addStudent(username, password, "name", 0, "email", 0, "interest")
+                return redirect(url_for('studentInfo'))
             #dbfunctions.newUserTable(c, username)
             db.commit()
             flash("Successfuly created user")
