@@ -45,6 +45,7 @@ def studentInfo():
 def createStudent():
     if request.method=="POST":
         username = session['username']
+        print(request.form)
         displayname = request.form['displayname']
         grade = request.form['grade']
         osis = request.form['osis']
