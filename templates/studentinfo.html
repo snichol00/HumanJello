@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block header %}
+  <h2>Welcome, {{username}}!</h2>
+  <h3>Please enter your information to finish creating your account.</h3>
+{% endblock %}
+
+{% block body %}
+  <form action="/createStudent" method="POST">
+    <label for="displayname">Name</label>
+    <input type="text" name="displayname" required>
+    <br>
+    <label for="osis">OSIS</label>
+    <input type="number" name="osis" required>
+    <br>
+    <label for="email">Email</label>
+    <input type="text" name="email" required>
+    <br>
+    <select id="grade" required>Grade
+      <option value="9">9</option>
+      <option value="10">10</option>
+      <option value="11">11</option>
+      <option value="12">12</option>
+    </select>
+    <br>
+    <input type="submit" name="create-account-button" value="Finish Registering">
+  </form>
+
+{% endblock %}
