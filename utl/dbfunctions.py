@@ -54,6 +54,9 @@ def addStudent(user, hashp, disp, osisNum, emailAcc, gra, inter):
     db.commit()
     c.close()
 
+def setGrade(user, grade):
+    c.execute("UPDATE users SET grade = ?;", (grade,))
+
 def addAdmin(user, hashp, emailAcc):
     c.execute("INSERT INTO users (username, hashpassword, email, admin) VALUES(?, ?);", (user, hasp, email, True))
 
