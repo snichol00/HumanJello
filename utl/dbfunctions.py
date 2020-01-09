@@ -13,16 +13,16 @@ from flask import current_app, g
 
 
 DB_FILE = "HumanJello.db"
+db = sqlite3.connect(DB_FILE) #open if file exists, otherwise create
+c = db.cursor()
 
 # setting up the database
 def setup():
-    db = sqlite3.connect(DB_FILE) #open if file exists, otherwise create
-    c = db.cursor()
     c.execute("""CREATE TABLE IF NOT EXISTS users (
                 userid INTEGER PRIMARY KEY AUTOINCREMENT,
                 username TEXT UNIQUE NOT NULL,
                 hashpassword TEXT NOT NULL,
-                displayname TEXT NOT NULL,
+                displayname TEXT,
                 osis INTEGER,
                 email TEXT NOT NULL,
                 grade TEXT,
@@ -45,25 +45,21 @@ def setup():
 
 
 # insert an opportunity into the database
-def insertOp(org, pos, int, des, gra, loc, due, dat):
-    """ insert an opportunity into the database """
-    db = sqlite3.connect(DB_FILE)  # open if file exists, otherwise create
-    c = db.cursor()
+def insertOp(org, pos, int, des, gra, loc, due, post, dat):
     c.execute("INSERT into opportunities (organization, position, interests, description, grades, location, duedate, posted, dates) VALUES(?, ?);", (org, pos, int, des, gra, loc, due, pos, dat))
     db.commit()
     c.close()
 
-def addUser(user, hashp, disp, osisNum, emailAcc, gra, inter, adm):
-    db = sqlite3.connect(DB_FILE)
-    c = db.cursor()
-    c.execute("INSERT into opportunities (username, hashpassword, displayname, osis, email, grade, interests, admin) VALUES(?, ?);", (user, hashp, disp, osisNum, emailAcc, gra, inter, adm))
+def addStudent(user, hashp, disp, osisNum, emailAcc, gra, inter):
+    c.execute("INSERT into users (username, hashpassword, displayname, osis, email, grade, interests, admin) VALUES(?, ?);", (user, hashp, disp, osisNum, emailAcc, gra, inter, False))
     db.commit()
     c.close()
 
+def addAdmin(user, hashp, emailAcc):
+    c.execute("INSERT INTO users (username, hashpassword, email, admin) VALUES(?, ?);", (user, hashp, emailAcc, True))
+
 
 def update_user(username, field, newvalue):
-    db = sqlite3.connect(DB_FILE)
-    c = db.cursor()
     c.execute("UPDATE users SET %s = '%s' WHERE username = '%s'" % (
                 field,
                 newvalue,
