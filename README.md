@@ -27,7 +27,7 @@ We are creating an opportunities bulletin that will improve on the document that
  3) Install the required packages
   $ pip install -r ./doc/requirements.txt
   
- 4) Run the flask app:
+ 4) Run the flask app:\
   $ python3 app.py
   
  5) Enjoy our program!
