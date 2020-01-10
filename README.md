@@ -18,13 +18,13 @@ We are creating an opportunities bulletin that will improve on the document that
   
 ## Launch Instructions:
 
- 1) Clone repository with SSH key:
+ 1) Clone repository with SSH key:\
   $ git clone https://github.com/snichol00/HumanJello.git
   
- 2) Enter the repository
+ 2) Enter the repository\
   $ cd HumanJello
  
- 3) Install the required packages
+ 3) Install the required packages\
   $ pip install -r ./doc/requirements.txt
   
  4) Run the flask app:\
