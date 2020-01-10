@@ -55,6 +55,7 @@ def createStudent():
         dbfunctions.update_user(c, username, "email", email)
         dbfunctions.update_user(c, username, "displayname", displayname)
         db.commit()
+    return redirect(url_for('welcome'))
 
 @app.route("/register", methods=["POST"])
 def register():
@@ -125,7 +126,11 @@ def auth():
     else: #successfully pass the tests
         session['username'] = username
         flash("Welcome " + username + ". You have been logged in successfully.")
-        return redirect(url_for('welcome'))
+        # if student has been initialized, go directly to welcome page
+        if dbfunctions.studentInit(c, username):
+            return redirect(url_for('welcome'))
+        else: #initialize student w basic data
+            return redirect(url_for('studentInfo'))
 
 @app.route("/welcome")
 def welcome():
