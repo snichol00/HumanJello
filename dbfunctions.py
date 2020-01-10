@@ -68,7 +68,7 @@ def update_user(c, username, field, newvalue):
 
 #return whether or not the student has filled in basic info yet
 def studentInit(c, username):
-    c.execute("SELECT FROM users WHERE username = ?;", (username,))
+    c.execute("SELECT * FROM users WHERE username = ?;", (username,))
     userinfo = c.fetchall()
     if userinfo[0][3]:
         return True
