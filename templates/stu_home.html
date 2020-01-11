@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block header %}
+  {% for message in get_flashed_messages %}
+    {{message}}
+  {% endfor %}
+{% endblock %}
+
+
+{% block body %}
+  <h1>View my opportunities</h1>
+  <h1>See all opportunities</h1>
+  <h1>View account info</h1>
+{% endblock %}
