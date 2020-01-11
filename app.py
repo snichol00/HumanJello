@@ -21,7 +21,7 @@ def root():
     return render_template("root.html")
 
 def checkAuth(): #checks if the user is logged in
-    if "userID" in session:
+    if "username" in session:
         return True
     else:
         return False
@@ -133,9 +133,10 @@ def auth():
         flash("Welcome " + username + ". You have been logged in successfully.")
         if isAdmin():
             flash("You are logged in as admin.")
+            return redirect(url_for('admin', username=session['username']))
         # if student has been initialized, go directly to welcome page
         if dbfunctions.studentInit(c, username):
-            return redirect(url_for('welcome'))
+            return redirect(url_for('studentHome'))
         else: #initialize student w basic data
             return redirect(url_for('studentInfo'))
 
