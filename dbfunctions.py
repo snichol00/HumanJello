@@ -56,6 +56,11 @@ def createStudent(c, user, hashp):
 def addAdmin(c, user, hashp, emailAcc):
     c.execute("INSERT INTO users (username, hashpassword, email, admin) VALUES(?, ?);", (user, hasp, email, True))
 
+def isAdmin(c, user):
+    c.execute("SELECT admin FROM users WHERE username = ?", (username, ))
+    userinfo = c.fetchone()
+    print(userinfo)
+    return userinfo[0]
 
 def update_user(c, username, field, newvalue):
     c.execute("UPDATE users SET %s = '%s' WHERE username = '%s'" % (
