@@ -26,6 +26,9 @@ def checkAuth(): #checks if the user is logged in
     else:
         return False
 
+def isAdmin():
+    return session['admin']
+
 #REDIRECT TO STUDENT/ADMIN REGISTER PAGE
 @app.route("/studentAccount")
 def studacc():
@@ -38,7 +41,8 @@ def adminacc():
 #PAGE FOR STUDENT TO ENTER INFORMATION AFTER REGISTERING
 @app.route("/studentInfo")
 def studentInfo():
-    return render_template("studentinfo.html", user=session['username'])
+    if checkAuth() and not isAdmin():
+        return render_template("studentinfo.html", user=session['username'])
 
 #PROCESSES STUDENT INFORMATION
 @app.route("/createStudent", methods=["POST"])
@@ -125,16 +129,21 @@ def auth():
         return redirect(url_for('login'))
     else: #successfully pass the tests
         session['username'] = username
+        session['admin'] = dbfunctions.isAdmin(c, username)
         flash("Welcome " + username + ". You have been logged in successfully.")
+        if isAdmin():
+            flash("You are logged in as admin.")
         # if student has been initialized, go directly to welcome page
         if dbfunctions.studentInit(c, username):
             return redirect(url_for('welcome'))
         else: #initialize student w basic data
             return redirect(url_for('studentInfo'))
 
-@app.route("/welcome")
-def welcome():
-    return "Welome!"
+@app.route("/studentHome")
+def studentHome():
+    if checkAuth():
+        return render_template('stu_home.html')
+    return redirect(url_for('root'))
 
 @app.route('/admin/<username>')
 def admin(username):
