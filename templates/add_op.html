@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %} Home {% endblock %}
+
+{% block body %}
+<table>
+  <!-- this should show the student opportunity bulletin -->
+</table>
+
+<!-- form to add new opportunity -->
+<h4>Add New Opportunity</h4>
+<form action="/addOpAuth" method="POST">
+  <label for="name">Name</label>
+  <input type="text" name="name" placeholder="Program Name or Position" required>
+  <br>
+  <label for="ints">Opportunity Tags (Ctrl+Click to select multiple)</label>
+  <br>
+  <select name="ints" multiple required>
+    <option value="events">General</option>
+    <option value="academic">Academic</option>
+    <option value="business">Business & Jobs</option>
+    <option value="community service">Community Service</option>
+    <option value="leadership">Leadership, Government, Law, Advocacy, International</option>
+    <option value="museums">Museums and Art</option>
+    <option value="nature">Parks, Zoos, Nature</option>
+    <option value="stem">STEM Opportunities</option>
+    <option value="humanities">Theater, Writing, Performing Arts, Video</option>
+    <option value="scholarships">Scholarships</option>
+  </select>
+  <br>
+  <label for="des">Description</label>
+  <br>
+  <input type="text" name="des" placeholder="Describe the opportunity..." width="48" height="30" required>
+  <br>
+  <label for="link">Link</label>
+  <input type="text" name="link" placeholder="Program website" required>
+  <br>
+  <label for="cost">Cost</label>
+  <input type="number" name="cost" placeholder="$" required>
+  <br>
+  <label for="grades">Grades Eligible (Ctrl+Enter to select multiple)</label>
+  <br>
+  <select name="grades" multiple required>Grades Eligible
+    <option value="9">9</option>
+    <option value="10">10</option>
+    <option value="11">11</option>
+    <option value="12">12</option>
+  </select>
+  <br>
+  <label for="loc">Location</label>
+  <input name="loc" placeholder="Address or Name" required>
+  <br>
+  <label for="duedate">Application/Registration Duedate</label>
+  <input name="duedate" type="date" required>
+  <br>
+  <label for="start_date">Program Start Date</label>
+  <input name="start_date" type="date" required>
+  <br>
+  <label for="end_date">Program End Date</label>
+  <input name="end_date" type="date" required>
+  <br>
+  <label for="notes">Other Notes</label>
+  <input name="notes" type="test">
+  <input type="submit" name="create-op-button" value="Create Opportunity">
+</form>
+
+{% endblock %}
