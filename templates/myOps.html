@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block header %}
+  {% for message in get_flashed_messages() %}
+    {{message}}
+  {% endfor %}
+{% endblock %}
+
+
+{% block body %}
+  {% for opportunity in opportunities %}
+  <br>
+  <h3> {{ name }} at {{ opp[0] }} </h3>
+  {% endfor %}
+{% endblock %}
