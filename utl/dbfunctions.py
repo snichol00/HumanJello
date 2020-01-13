@@ -74,3 +74,12 @@ def studentInit(c, username):
     if userinfo[0][3]:
         return True
     return False
+
+# gets a column of a given database given a conditional
+def get(tbl_name, column, conditional=""):
+    db = sqlite3.connect(DB_FILE) #open if file exists, otherwise create
+    c = db.cursor()
+    c.execute("SELECT %s FROM %s %s" % (column, tbl_name, conditional))
+    values = c.fetchall()
+    c.close()
+    return [list(value) for value in values]
