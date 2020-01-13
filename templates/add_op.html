@@ -10,10 +10,10 @@
 <!-- form to add new opportunity -->
 <h4>Add New Opportunity</h4>
 <form action="/addOpAuth" method="POST">
-  <label for="name">Name</label>
+  <label for="name"><strong>Name</strong><span style="color:red"> *Required</span></label>
   <input type="text" name="name" placeholder="Program Name or Position" required>
   <br>
-  <label for="ints">Opportunity Tags (Ctrl+Click to select multiple)</label>
+  <label for="ints"><strong>Opportunity Tags</strong> (Ctrl+Click to select multiple)<span style="color:red"> *Required</span></label>
   <br>
   <select name="ints" multiple required>
     <option value="events">General</option>
@@ -28,17 +28,17 @@
     <option value="scholarships">Scholarships</option>
   </select>
   <br>
-  <label for="des">Description</label>
+  <label for="des"><strong>Description</strong><span style="color:red"> *Required</span></label>
   <br>
-  <input type="text" name="des" placeholder="Describe the opportunity..." width="48" height="30" required>
+  <textarea type="text" name="des" placeholder="Describe the opportunity..." rows="5" cols="75" required></textarea>
   <br>
-  <label for="link">Link</label>
-  <input type="text" name="link" placeholder="Program website" required>
+  <label for="link"><strong>Link</strong></label>
+  <input type="text" name="link" placeholder="Program website">
   <br>
-  <label for="cost">Cost</label>
-  <input type="number" name="cost" placeholder="$" required>
+  <label for="cost"><strong>Cost</strong></label>
+  <input type="number" name="cost" placeholder="$">
   <br>
-  <label for="grades">Grades Eligible (Ctrl+Enter to select multiple)</label>
+  <label for="grades"><strong>Grades Eligible (Ctrl+Enter to select multiple)</strong><span style="color:red"> *Required</span></label>
   <br>
   <select name="grades" multiple required>Grades Eligible
     <option value="9">9</option>
@@ -47,20 +47,22 @@
     <option value="12">12</option>
   </select>
   <br>
-  <label for="loc">Location</label>
-  <input name="loc" placeholder="Address or Name" required>
+  <label for="loc"><strong>Location</strong></label>
+  <input name="loc" placeholder="Address or Name">
   <br>
-  <label for="duedate">Application/Registration Duedate</label>
-  <input name="duedate" type="date" required>
+  <label for="duedate"><strong>Application/Registration Duedate</label>
+  <input name="duedate" type="date">
   <br>
   <label for="start_date">Program Start Date</label>
-  <input name="start_date" type="date" required>
+  <input name="start_date" type="date">
   <br>
   <label for="end_date">Program End Date</label>
-  <input name="end_date" type="date" required>
+  <input name="end_date" type="date">
   <br>
   <label for="notes">Other Notes</label>
   <input name="notes" type="test">
+  <br>
+  <br>
   <input type="submit" name="create-op-button" value="Create Opportunity">
 </form>
 
