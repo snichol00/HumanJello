@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title %} Home {% endblock %}
+{% block header %}
+  {% for message in get_flashed_messages() %}
+    {{message}}
+  {% endfor %}
+{% endblock %}
+
+{% block body %}
+  <a href="/addOp">Add new Opportunity!</a>
+{% endblock %}
