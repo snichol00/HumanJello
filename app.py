@@ -91,6 +91,7 @@ def register():
             return redirect(url_for(register_route))
 
         else:  # successfully created an account
+            # this threw an error bc its doesn't specify columns, but why is it called in the first place?
             c.execute("INSERT INTO users VALUES (NULL, ?, ?)", (username, password))
             dbfunctions.newUserTable(c, username)
             if student:
