@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, session, flash, request
 import json, sys
 import sqlite3, os
-# from utl import dbfunctions
+from utl import dbfunctions
 import dbfunctions
 
 app = Flask(__name__)
@@ -9,6 +9,7 @@ app = Flask(__name__)
 app.secret_key = os.urandom(32)
 
 DB_FILE = "HumanJello.db"
+ADMIN_CODE = "admin"
 
 """Setup databases"""
 # open if file exists, otherwise create
@@ -19,6 +20,14 @@ dbfunctions.setup()
 
 @app.route("/")
 def root():
+    if checkAuth(): #if logged in alrdy (cookies)
+        if isAdmin():
+            return redirect(url_for('adminHome'))
+        #if student alrdy initialized, go to student home
+        if dbfunctions.studentInit(c, session['username']):
+            return redirect(url_for('studentHome'))
+        #student needs to initialize
+        return redirect(url_for('studentInfo'))
     return render_template("root.html")
 
 def checkAuth(): #checks if the user is logged in
@@ -70,7 +79,7 @@ def register():
             admin = True
             register_route = 'studentacc'
         else:
-            student = True
+            admin=False
             register_route = 'adminacc'
         username = request.form['username']
         password = request.form['password']
@@ -90,19 +99,23 @@ def register():
         elif len(password) < 8:  # passwords must have a minimum length of 8
             flash("Password must be at least 8 characters in length")
             return redirect(url_for(register_route))
-
+        #passwords do match
         else:  # successfully created an account
-            # this threw an error bc its doesn't specify columns, but why is it called in the first place?
-            c.execute("INSERT INTO users VALUES (NULL, ?, ?)", (username, password))
-            dbfunctions.newUserTable(c, username)
-            if student:
+            if !admin:
                 dbfunctions.createStudent(c, username, password)
                 db.commit()
+                flash("Successfuly created user")
                 return redirect(url_for('login'))
-            #dbfunctions.newUserTable(c, username)
-            db.commit()
-            flash("Successfuly created user")
-            return redirect(url_for('studentLogin'))
+            #below scenarios are for admin
+            elif request.form['adminCode'] == ADMIN_CODE:  #if admin code matches, create account
+                dbfunctions.addAdmin(c, username, password, request.form['email'])
+                flash("Successfuly created user")
+                db.commit()
+                return redirect(url_for('login'))
+            else:
+                flash("Incorrect Admin Code")
+                return redirect(url_for(register_route))
+
     else:
         flash("GET request")
         return redirect(url_for('root'))
@@ -167,6 +180,11 @@ def addOpAuth():
     dbfunctions.createOp(c, request.form['name'], "ints_string", request.form['des'], "grades")
     return redirect(url_for('adminHome'))
 
+@app.route("/logout")
+def logout():
+    session.pop['username']
+    session.pop['admin']
+    return redirect(url_for('root'))
 
 if __name__ == "__main__":
     app.debug = True
