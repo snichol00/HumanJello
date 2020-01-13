@@ -31,20 +31,23 @@ def setup():
                 );""")
     c.execute("""CREATE TABLE IF NOT EXISTS opportunities (
                 opid INTEGER PRIMARY KEY AUTOINCREMENT,
-                organization TEXT,
-                position TEXT,
+                name TEXT,
                 interests TEXT,
                 description TEXT,
+                link TEXT,
+                cost INTEGER,
                 grades TEXT,
                 location TEXT,
                 duedate TEXT,
                 posted TEXT,
-                dates TEXT
+                start_date TEXT,
+                end_date TEXT,
+                notes TEXT
                 );""")
 
 # insert an opportunity into the database
-def insertOp(c, org, pos, int, des, gra, loc, due, post, dat):
-    c.execute("INSERT into opportunities (organization, position, interests, description, grades, location, duedate, posted, dates) VALUES(?, ?);", (org, pos, int, des, gra, loc, due, pos, dat))
+def insertOp(c, name, int, des, link, cost, gra, loc, due, start, end, notes):
+    c.execute("INSERT into opportunities (name, interests, description, link, cost, grades, location, duedate, posted, start_date, end_date, notes) VALUES(?, ?);", (name, int, des, link, cost, gra, loc, due, datetime('now'), start, end, notes))
 
 def addStudent(c, user, hashp, disp, osisNum, emailAcc, gra, inter):
     c.execute("INSERT into users (username, hashpassword, displayname, osis, email, grade, interests, admin) VALUES(?, ?, ?, ?, ?, ?, ?, ?);", (user, hashp, disp, osisNum, emailAcc, gra, inter, False))
@@ -78,3 +81,12 @@ def studentInit(c, username):
     if userinfo[0][3]:
         return True
     return False
+
+# gets a column of a given database given a conditional
+def get(tbl_name, column, conditional=""):
+    db = sqlite3.connect(DB_FILE) #open if file exists, otherwise create
+    c = db.cursor()
+    c.execute("SELECT %s FROM %s %s" % (column, tbl_name, conditional))
+    values = c.fetchall()
+    c.close()
+    return [list(value) for value in values]
