@@ -1,6 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, session, flash, request
 import json, sys
 import sqlite3, os
+# from utl import dbfunctions
 import dbfunctions
 
 app = Flask(__name__)
@@ -134,7 +135,7 @@ def auth():
         flash("Welcome " + username + ". You have been logged in successfully.")
         if isAdmin():
             flash("You are logged in as admin.")
-            return redirect(url_for('admin', username=session['username']))
+            return redirect(url_for('adminHome'))
         # if student has been initialized, go directly to welcome page
         if dbfunctions.studentInit(c, username):
             return redirect(url_for('studentHome'))
@@ -147,10 +148,18 @@ def studentHome():
         return render_template('stu_home.html')
     return redirect(url_for('root'))
 
-@app.route('/admin/<username>')
-def admin(username):
-    c.execute('SELECT * FROM opportunities')
-    return render_template('admin.html')
+@app.route('/adminHome')
+def adminHome():
+    return render_template('adm_home.html')
+
+@app.route("/addOp")
+def addOp():
+    return render_template('add_op.html')
+
+@app.route("/addOpAuth", methods=["POST"])
+def addOpAuth():
+    print(request.form)
+    return redirect(url_for('adminHome'))
 
 
 if __name__ == "__main__":
