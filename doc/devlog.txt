@@ -35,3 +35,10 @@ pehlivanianL -- 2020-01-08 14:48
 pehlivanianL -- 2020-01-09 02:36
 - Created studentinfo.html template with form for student to enter basic info after creating account.
 - Created routes in app.py to display and handle the form data. Haven't tested yet.
+
+nicholS -- 2020-1-09 2:41
+- Updated README to include an abstract of our project, instructions, and a link to the API
+
+nicholS -- 2020-1-12 20:33
+- Made a function that will return relevant opportunities to a given user
+- added a get function to return values from the database
