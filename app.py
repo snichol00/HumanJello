@@ -159,6 +159,12 @@ def addOp():
 @app.route("/addOpAuth", methods=["POST"])
 def addOpAuth():
     print(request.form)
+    print(request.form['ints'])
+    # ints_string=""
+    for tuple in request.form:
+        if tuple[0] == "ints":
+            print(tuple[1])
+    dbfunctions.createOp(c, request.form['name'], "ints_string", request.form['des'], "grades")
     return redirect(url_for('adminHome'))
 
 
