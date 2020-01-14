@@ -81,7 +81,7 @@ def createStudent():
         dbfunctions.update_user(c, username, "email", email)
         dbfunctions.update_user(c, username, "displayname", displayname)
         db.commit()
-    return redirect(url_for('welcome'))
+    return redirect(url_for('studentHome'))
 
 @app.route("/register", methods=["POST"])
 def register():
@@ -241,7 +241,7 @@ def showCalendar():
 @app.route("/addEvent")
 def event():
     return render_template("addEvent.html")
-    
+
 @app.route("/adminEvent")
 def addEvent():
     creds = None
@@ -262,7 +262,7 @@ def addEvent():
         # Save the credentials for the next run
         with open('token.pickle', 'wb') as token:
             pickle.dump(creds, token)
-            
+
     service = build('calendar', 'v3', credentials=creds)
     TIMEZONE = 'America/New_York'
     EVENT = {
