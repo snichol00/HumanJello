@@ -39,11 +39,40 @@ pehlivanianL -- 2020-01-09 02:36
 nicholS -- 2020-1-09 2:41
 - Updated README to include an abstract of our project, instructions, and a link to the API
 
+pehlivanianL -- 2020-01-10 14:40
+- Fixed errors in studentinfo route; it works now.
+- Updated routes on homepage and fixed errors in student_init and grade dropdown in studentinfo form.
+
+pehlivanianL -- 2020-01-11 09:52
+- Made isAdmin function in dbfunctions to check table, implemented in app.py, adds admin boolean to session.
+- Created separate homepage landings for student and admin. Redirects after logging in.
+
 nicholS -- 2020-1-12 20:33
 - Made a function that will return relevant opportunities to a given user
 - added a get function to return values from the database
+
+pehlivanianL -- 2010-01-12 22:24
+- Created form to input details about opportunities. Based parameters off database and bulletin pdf.
+- Edited opportunities table and created function to add opportunity.
+- Added separate route and html page for add opportunity form.
 
 nicholS -- 2020-1-13 21:58
 - Made templates to display results for all opportunities and my Opportunities
 - fixed form to sort opportunities
 - Made routes to redirect to pages for allOps and myOps
+
+pehlivanianL -- 2020-01-13 12:16
+- Made some opportunity form inputs required.
+- Created function to initialize opportunity based on these required input values.
+- Worked on debugging add_op request.form dictionary (repeated keys due to multiple select form element)
+
+pehlivanianL -- 2020-01-13 16:46
+- Fixed register protocol in app.py. Added admin code checker for admin register.
+- Created new html base file for logged in pages, with logout button.
+- Edited addAdmin function, fixed errors.
+
+pehlivanianL -- 2020-01-14 02:12
+- Remade opportunities table so that interests and grades are each stored in own column, as booleans.
+- Fixed createOp, created addInterest functions to reflect these updates.
+- Fixed error with multiple keys in add_op request.form by using getlist().
+- Created code in app.py to successfully initialize op based on form data, then update interests individually.
