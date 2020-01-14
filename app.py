@@ -1,16 +1,16 @@
-from __future__ import print_function
-import datetime
-import pickle
-import os.path
-from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
+# from __future__ import print_function
+# import datetime
+# import pickle
+# import os.path
+# from googleapiclient.discovery import build
+# from google_auth_oauthlib.flow import InstalledAppFlow
+# from google.auth.transport.requests import Request
 
 from flask import Flask, render_template, redirect, url_for, session, flash, request
 import json, sys
 import sqlite3, os
-import urllib.request as urlrequest
-from urllib.request import urlopen, Request
+#import urllib.request as urlrequest
+#from urllib.request import urlopen, Request
 # from utl import dbfunctions
 import dbfunctions
 
@@ -184,8 +184,9 @@ def myOps():
 @app.route("/allOps")
 def allOps():
     if checkAuth():
-        collection = get("opportunities", "opid, name")
-        return render_template('allOps.html')
+        collection = dbfunctions.getAllOps(c)
+        print(collection)
+        return render_template('allOps.html', op_list = collection)
     return redirect(url_for('root'))
 
 @app.route('/adminHome')
@@ -241,7 +242,7 @@ def showCalendar():
 @app.route("/addEvent")
 def event():
     return render_template("addEvent.html")
-    
+
 @app.route("/adminEvent")
 def addEvent():
     creds = None
@@ -262,7 +263,7 @@ def addEvent():
         # Save the credentials for the next run
         with open('token.pickle', 'wb') as token:
             pickle.dump(creds, token)
-            
+
     service = build('calendar', 'v3', credentials=creds)
     TIMEZONE = 'America/New_York'
     EVENT = {
