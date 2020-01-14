@@ -8,8 +8,23 @@
 
 
 {% block body %}
-  {% for opportunity in opportunities %}
+<div align="center">
+  <form action="/action_page.php">
+    <select name="cars">
+      <option value="duedate">Due Date</option>
+      <option value="posted">Most Recent</option>
+    </select>
+  <input type="submit">
+</form>
+<br>
+  <h1> Opportunities </h1>
+  <ul>
+      {% for item in collection %}
+      <li>
+          <a href="{{ url_for('oppotunity', opid=item[0]) }}">{{ item[1] }}</a> <br> <br>
+      </li>
+      {% endfor %}
+  </ul>
   <br>
-  <h3> {{ name }} at {{ opp[0] }} </h3>
-  {% endfor %}
+</div>
 {% endblock %}

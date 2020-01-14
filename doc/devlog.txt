@@ -42,3 +42,8 @@ nicholS -- 2020-1-09 2:41
 nicholS -- 2020-1-12 20:33
 - Made a function that will return relevant opportunities to a given user
 - added a get function to return values from the database
+
+nicholS -- 2020-1-13 21:58
+- Made templates to display results for all opportunities and my Opportunities
+- fixed form to sort opportunities
+- Made routes to redirect to pages for allOps and myOps
