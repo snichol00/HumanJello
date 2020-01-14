@@ -1,7 +1,7 @@
 from flask import Flask, render_template, redirect, url_for, session, flash, request
 import json, sys
 import sqlite3, os
-from utl import dbfunctions
+# from utl import dbfunctions
 import dbfunctions
 
 app = Flask(__name__)
@@ -101,7 +101,7 @@ def register():
             return redirect(url_for(register_route))
         #passwords do match
         else:  # successfully created an account
-            if !admin:
+            if not admin:
                 dbfunctions.createStudent(c, username, password)
                 db.commit()
                 flash("Successfuly created user")
@@ -175,15 +175,14 @@ def addOpAuth():
     print(request.form['ints'])
     # ints_string=""
     for tuple in request.form:
-        if tuple[0] == "ints":
-            print(tuple[1])
+        print(tuple[1])
     dbfunctions.createOp(c, request.form['name'], "ints_string", request.form['des'], "grades")
     return redirect(url_for('adminHome'))
 
 @app.route("/logout")
 def logout():
-    session.pop['username']
-    session.pop['admin']
+    session.pop("username")
+    session.pop('admin')
     return redirect(url_for('root'))
 
 if __name__ == "__main__":
