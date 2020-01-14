@@ -30,13 +30,25 @@ def setup():
                 admin BOOLEAN
                 );""")
     c.execute("""CREATE TABLE IF NOT EXISTS opportunities (
-                opid INTEGER PRIMARY KEY AUTOINCREMENT,
+                opid INTEGER PRIMARY KEY,
                 name TEXT,
-                interests TEXT,
+                events BOOLEAN,
+                academic BOOLEAN,
+                business BOOLEAN,
+                community_service BOOLEAN,
+                leadership BOOLEAN,
+                museums BOOLEAN,
+                nature BOOLEAN,
+                stem BOOLEAN,
+                humanities BOOLEAN,
+                scholarships BOOLEAN,
                 description TEXT,
                 link TEXT,
                 cost INTEGER,
-                grades TEXT,
+                gr9 BOOLEAN,
+                gr10 BOOLEAN,
+                gr11 BOOLEAN,
+                gr12 BOOLEAN,
                 location TEXT,
                 duedate TEXT,
                 posted TEXT,
@@ -46,8 +58,15 @@ def setup():
                 );""")
 
 # initialize opportunity based on required inputs
-def createOp(c, name, int, des, gra):
-    c.execute("INSERT INTO opportunities (name, interests, description, grades) VALUES (?, ?, ?, ?);", (name, int, des, gra))
+def createOp(c, name, des, nine, ten, elev, twel):
+    c.execute("INSERT INTO opportunities (name, description, gr9, gr10, gr11, gr12) VALUES (?, ?, ?, ?, ?, ?);", (name, des, nine, ten, elev, twel))
+    c.execute("SELECT last_insert_rowid();")
+    id = c.fetchone()
+    #print("id: ", id[0])
+    return id[0]
+
+def addInterest(c, id, interest):
+    c.execute("UPDATE opportunities SET %s = True WHERE opid = %d;" % (interest, id))
 
 def insertOp(c, name, int, des, link, cost, gra, loc, due, start, end, notes):
     c.execute("INSERT into opportunities (name, interests, description, link, cost, grades, location, duedate, posted, start_date, end_date, notes) VALUES(?, ?);", (name, int, des, link, cost, gra, loc, due, datetime('now'), start, end, notes))
