@@ -5,6 +5,7 @@ from re import search
 from numbers import Number
 # Flask Lib
 from flask import current_app, g
+from datetime import datetime
 
 """
     This module deals with interaction with the database
@@ -76,7 +77,7 @@ def addInterest(c, id, interest):
     c.execute("UPDATE opportunities SET %s = True WHERE opid = %d;" % (interest, id))
 
 def insertOp(c, name, int, des, link, cost, gra, loc, due, start, end, notes):
-    c.execute("INSERT into opportunities (name, interests, description, link, cost, grades, location, duedate, posted, start_date, end_date, notes) VALUES(?, ?);", (name, int, des, link, cost, gra, loc, due, datetime('now'), start, end, notes))
+    c.execute("INSERT into opportunities (name, interests, description, link, cost, grades, location, duedate, posted, start_date, end_date, notes) VALUES(?, ?);", (name, int, des, link, cost, gra, loc, due, datetime.now(), start, end, notes))
 
 def addStudent(c, user, hashp, disp, osisNum, emailAcc, gra, inter):
     c.execute("INSERT into users (username, hashpassword, displayname, osis, email, grade, interests, admin) VALUES(?, ?, ?, ?, ?, ?, ?, ?);", (user, hashp, disp, osisNum, emailAcc, gra, inter, False))

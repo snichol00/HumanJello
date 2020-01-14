@@ -81,7 +81,7 @@ def createStudent():
         dbfunctions.update_user(c, username, "email", email)
         dbfunctions.update_user(c, username, "displayname", displayname)
         db.commit()
-    return redirect(url_for('welcome'))
+    return redirect(url_for('studentHome'))
 
 @app.route("/register", methods=["POST"])
 def register():
@@ -177,7 +177,7 @@ def studentHome():
 def myOps():
     if checkAuth():
         # should run a function first to sorts Ops
-        collection = get("opportunities", "opid, name")
+        collection = dbfunctions.get("opportunities", "opid, name")
         return render_template('myOps.html')
     return redirect(url_for('root'))
 
