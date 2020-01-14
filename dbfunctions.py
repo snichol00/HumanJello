@@ -60,7 +60,7 @@ def createStudent(c, user, hashp):
 
 
 def addAdmin(c, user, hashp, emailAcc):
-    c.execute("INSERT INTO users (username, hashpassword, email, admin) VALUES(?, ?);", (user, hasp, email, True))
+    c.execute("INSERT INTO users (username, hashpassword, email, admin) VALUES(?, ?, ?, ?);", (user, hashp, emailAcc, True))
 
 def isAdmin(c, username):
     c.execute("SELECT admin FROM users WHERE username = ?", (username, ))
