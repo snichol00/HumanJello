@@ -8,8 +8,15 @@
 
 
 {% block body %}
-  {% for opportunity in opportunities %}
+<div align="center">
+  <h1> Opportunities </h1>
+  <ul>
+      {% for item in collection %}
+      <li>
+          <a href="{{ url_for('oppotunity', opid=item[0]) }}">{{ item[1] }}</a> <br> <br>
+      </li>
+      {% endfor %}
+  </ul>
   <br>
-  <h3> {{ name }} at {{ opp[0] }} </h3>
-  {% endfor %}
+</div>
 {% endblock %}
