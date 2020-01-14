@@ -161,6 +161,21 @@ def studentHome():
         return render_template('stu_home.html')
     return redirect(url_for('root'))
 
+@app.route("/myOps")
+def myOps():
+    if checkAuth():
+        # should run a function first to sorts Ops
+        collection = get("opportunities", "opid, name")
+        return render_template('myOps.html')
+    return redirect(url_for('root'))
+
+@app.route("/allOps")
+def allOps():
+    if checkAuth():
+        collection = get("opportunities", "opid, name")
+        return render_template('allOps.html')
+    return redirect(url_for('root'))
+
 @app.route('/adminHome')
 def adminHome():
     return render_template('adm_home.html')
