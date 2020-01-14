@@ -65,6 +65,13 @@ def createOp(c, name, des, nine, ten, elev, twel):
     #print("id: ", id[0])
     return id[0]
 
+def getInterests(c, id):
+    out = ""
+    c.execute("SELECT events,academic,business,community_service,leadership,museums,nature,stem,humanities, scholarships FROM opportunities WHERE opid=?;", (id, ))
+    arr = c.fetchone()
+    print(arr)
+    return arr
+
 def addInterest(c, id, interest):
     c.execute("UPDATE opportunities SET %s = True WHERE opid = %d;" % (interest, id))
 
@@ -112,3 +119,8 @@ def get(tbl_name, column, conditional=""):
     values = c.fetchall()
     c.close()
     return [list(value) for value in values]
+
+def getAllOps(c):
+    c.execute("SELECT * FROM opportunities;")
+    all = c.fetchall()
+    return all
