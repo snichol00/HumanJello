@@ -236,6 +236,14 @@ def logout():
 
 @app.route("/adminCalendar")
 def showCalendar():
+    return render_template("adminCalendar.html")
+
+@app.route("/addEvent")
+def event():
+    return render_template("addEvent.html")
+    
+@app.route("/adminEvent")
+def addEvent():
     creds = None
     # The file token.pickle stores the user's access and refresh tokens, and is
     # created automatically when the authorization flow completes for the first
@@ -254,19 +262,17 @@ def showCalendar():
         # Save the credentials for the next run
         with open('token.pickle', 'wb') as token:
             pickle.dump(creds, token)
-
+            
     service = build('calendar', 'v3', credentials=creds)
-
     TIMEZONE = 'America/New_York'
-    # EVENT = {
-        # 'summary': request.args["input"],
-        # 'start'  : {'dateTime': request.args["startDate"] + "T" + request.args["startTime"],
-                    # 'timeZone': TIMEZONE},
-        # 'end'    : {'dateTime': request.args["endDate"] + "T" + request.args["endTime"],
-                    # 'timeZone': TIMEZONE},
-    # }
-    # service.events().insert(calendarId = 'primary', body = EVENT).execute()
-
+    EVENT = {
+        'summary': request.args["input"],
+        'start'  : {'dateTime': request.args["startDate"] + "T" + request.args["startTime"],
+                    'timeZone': TIMEZONE},
+        'end'    : {'dateTime': request.args["endDate"] + "T" + request.args["endTime"],
+                    'timeZone': TIMEZONE},
+    }
+    service.events().insert(calendarId = 'primary', body = EVENT).execute()
     return render_template("adminCalendar.html")
 
 if __name__ == "__main__":

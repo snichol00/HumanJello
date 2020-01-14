@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %} Add Event {% endblock %}
+
+{% block body %}
+	
+	<form action = '/adminEvent'>
+		Event: <br>
+		<input type = "text" name = "input"> <br>
+		
+		Start Date (yyyy-mm-dd): <br>
+		<input type = "text" name = "startDate"> <br>
+		
+		Start Time (Military Time hh:mm:ss): <br>
+		<input type = "text" name = "startTime"> <br>
+		
+		End Date (yyyy-mm-dd): <br>
+		<input type = "text" name = "endDate"> <br>
+		
+		End Time (Military Time hh:mm:ss): <br>
+		<input type = "text" name = "endTime"> <br><br>
+		
+		<input type = "submit" value = "Submit">
+	</form>
+	
+{% endblock %}
