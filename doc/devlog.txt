@@ -76,3 +76,7 @@ pehlivanianL -- 2020-01-14 02:12
 - Fixed createOp, created addInterest functions to reflect these updates.
 - Fixed error with multiple keys in add_op request.form by using getlist().
 - Created code in app.py to successfully initialize op based on form data, then update interests individually.
+
+zhengJ -- 2020-01-14 03:58
+- Added Google Calendar
+- Can add events to calendar
