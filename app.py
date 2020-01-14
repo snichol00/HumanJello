@@ -1,6 +1,16 @@
+from __future__ import print_function
+import datetime
+import pickle
+import os.path
+from googleapiclient.discovery import build
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
+
 from flask import Flask, render_template, redirect, url_for, session, flash, request
 import json, sys
 import sqlite3, os
+import urllib.request as urlrequest
+from urllib.request import urlopen, Request
 # from utl import dbfunctions
 import dbfunctions
 
@@ -11,12 +21,14 @@ app.secret_key = os.urandom(32)
 DB_FILE = "HumanJello.db"
 ADMIN_CODE = "admin"
 
+# If modifying these scopes, delete the file token.pickle.
+SCOPES = ['https://www.googleapis.com/auth/calendar.events']
+
 """Setup databases"""
 # open if file exists, otherwise create
 db = sqlite3.connect(DB_FILE, check_same_thread=False)
 c = db.cursor()  # facilitate db operations
 dbfunctions.setup()
-
 
 @app.route("/")
 def root():
@@ -221,6 +233,41 @@ def logout():
     session.pop("username")
     session.pop('admin')
     return redirect(url_for('root'))
+
+@app.route("/adminCalendar")
+def showCalendar():
+    creds = None
+    # The file token.pickle stores the user's access and refresh tokens, and is
+    # created automatically when the authorization flow completes for the first
+    # time.
+    if os.path.exists('token.pickle'):
+        with open('token.pickle', 'rb') as token:
+            creds = pickle.load(token)
+    # If there are no (valid) credentials available, let the user log in.
+    if not creds or not creds.valid:
+        if creds and creds.expired and creds.refresh_token:
+            creds.refresh(Request())
+        else:
+            flow = InstalledAppFlow.from_client_secrets_file(
+                'credentials.json', SCOPES)
+            creds = flow.run_local_server(port=0)
+        # Save the credentials for the next run
+        with open('token.pickle', 'wb') as token:
+            pickle.dump(creds, token)
+
+    service = build('calendar', 'v3', credentials=creds)
+
+    TIMEZONE = 'America/New_York'
+    # EVENT = {
+        # 'summary': request.args["input"],
+        # 'start'  : {'dateTime': request.args["startDate"] + "T" + request.args["startTime"],
+                    # 'timeZone': TIMEZONE},
+        # 'end'    : {'dateTime': request.args["endDate"] + "T" + request.args["endTime"],
+                    # 'timeZone': TIMEZONE},
+    # }
+    # service.events().insert(calendarId = 'primary', body = EVENT).execute()
+
+    return render_template("adminCalendar.html")
 
 if __name__ == "__main__":
     app.debug = True
