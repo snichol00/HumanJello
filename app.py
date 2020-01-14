@@ -189,9 +189,31 @@ def addOpAuth():
     print(request.form)
     print(request.form['ints'])
     # ints_string=""
-    for tuple in request.form:
-        print(tuple[1])
-    dbfunctions.createOp(c, request.form['name'], "ints_string", request.form['des'], "grades")
+    ints = request.form.getlist("ints") #list of interests
+    grades = request.form.getlist("grades")
+    #get 9,10,11,12 into booleans
+    n=False
+    te=False
+    e=False
+    tw=False
+    for grade in grades:
+        if grade=="9":
+            print(9)
+            n = True
+        if grade=="10":
+            print(10)
+            te = True
+        if grade=="11":
+            print(11)
+            e = True
+        if grade=="12":
+            print(12)
+            tw=True
+    id = dbfunctions.createOp(c, request.form['name'], request.form['des'], n, te, e, tw)
+    print(id)
+    for int in ints:
+        dbfunctions.addInterest(c, id, int)
+    db.commit()
     return redirect(url_for('adminHome'))
 
 @app.route("/logout")
