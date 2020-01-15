@@ -25,7 +25,6 @@ We are creating an opportunities bulletin that will improve on the document that
   $ cd HumanJello
  
  3) Install the required packages\
-  $ pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
   $ pip install -r ./doc/requirements.txt
   
  4) Run the flask app:\
