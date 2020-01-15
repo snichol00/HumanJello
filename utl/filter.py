@@ -18,6 +18,7 @@ def relOps(username):
 
 # should return whether the opportunity is of interest to the given user
 def isOpRel(opID, username):
+    opEv = get("opportunities", "events", "WHERE opid = '%s'" % opID)[0][0]
     opAc = get("opportunities", "academic", "WHERE opid = '%s'" % opID)[0][0]
     opBu = get("opportunities", "business", "WHERE opid = '%s'" % opID)[0][0]
     opCo = get("opportunities", "community_service", "WHERE opid = '%s'" % opID)[0][0]
@@ -28,6 +29,7 @@ def isOpRel(opID, username):
     opHu = get("opportunities", "humanities", "WHERE opid = '%s'" % opID)[0][0]
     opSc = get("opportunities", "scholarships", "WHERE opid = '%s'" % opID)[0][0]
 
+    sEv = get("users", "events", "WHERE username = '%s'" % username)[0][0]
     sAc = get("users", "academic", "WHERE username = '%s'" % username)[0][0]
     sBu = get("users", "business", "WHERE username = '%s'" % username)[0][0]
     sCo = get("users", "community_service", "WHERE username = '%s'" % username)[0][0]
@@ -38,7 +40,7 @@ def isOpRel(opID, username):
     sHu = get("users", "humanities", "WHERE username = '%s'" % username)[0][0]
     sSc = get("users", "scholarships", "WHERE username = '%s'" % username)[0][0]
 
-    if (opAc != sAc and opBu != sBu and opCo != sCo and opLe != sLe and opMu != sMu
+    if (opEv != sEv and opAc != sAc and opBu != sBu and opCo != sCo and opLe != sLe and opMu != sMu
         and opNa != sNa and opSt != sSt and opHu != sHu and opSc != sSc):
         return False
 
