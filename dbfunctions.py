@@ -86,6 +86,10 @@ def createOp(c, name, des, nine, ten, elev, twel):
     #print("id: ", id[0])
     return id[0]
 
+def editOp(c, id, name, des, nine, ten, elev, twel):
+    c.execute("UPDATE opportunities SET name = ?, description = ?, gr9 = ?, gr10 = ?, gr11 = ?, gr12 = ?;", (name, des, nine, ten, elev, twel))
+
+
 def getInterests(c, id):
     out = ""
     c.execute("SELECT events,academic,business,community_service,leadership,museums,nature,stem,humanities, scholarships FROM opportunities WHERE opid=?;", (id, ))
@@ -95,10 +99,11 @@ def getInterests(c, id):
 
 #updates a field of opportunity based on id
 def updateOp(c, id, field, new_val):
-    c.execute("UPDATE opportunities SET %s = '%s' WHERE opid = %d;" % (field, new_val, id))
+    print("UPDATE opportunities SET %s = '%s' WHERE opid = %s;" % (field, new_val, id))
+    c.execute("UPDATE opportunities SET %s = '%s' WHERE opid = %s;" % (field, new_val, id))
 
 def addInterest(c, id, interest):
-    c.execute("UPDATE opportunities SET %s = True WHERE opid = %d;" % (interest, id))
+    c.execute("UPDATE opportunities SET %s = True WHERE opid = %s;" % (interest, id))
 
 def insertOp(c, name, int, des, link, cost, gra, loc, due, start, end, notes):
     c.execute("INSERT into opportunities (name, interests, description, link, cost, grades, location, duedate, posted, start_date, end_date, notes) VALUES(?, ?);", (name, int, des, link, cost, gra, loc, due, datetime.now(), start, end, notes))
@@ -107,6 +112,10 @@ def getAllOps(c):
     c.execute("SELECT * FROM opportunities;")
     all = c.fetchall()
     return all
+
+def getOp(c, id):
+    c.execute("SELECT * FROM opportunities WHERE opid = ?;", (id, ))
+    return c.fetchone()
 
 #STUDENT FUNCTIONS---------------------------
 def addStudent(c, user, hashp, disp, osisNum, emailAcc, gra, inter):
