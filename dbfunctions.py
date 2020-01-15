@@ -27,7 +27,16 @@ def setup():
                 osis INTEGER,
                 email TEXT,
                 grade TEXT,
-                interests TEXT,
+                events BOOLEAN,
+                academic BOOLEAN,
+                business BOOLEAN,
+                community_service BOOLEAN,
+                leadership BOOLEAN,
+                museums BOOLEAN,
+                nature BOOLEAN,
+                stem BOOLEAN,
+                humanities BOOLEAN,
+                scholarships BOOLEAN,
                 admin BOOLEAN
                 );""")
     c.execute("""CREATE TABLE IF NOT EXISTS opportunities (
@@ -45,7 +54,7 @@ def setup():
                 scholarships BOOLEAN,
                 description TEXT,
                 link TEXT,
-                cost INTEGER,
+                cost TEXT,
                 gr9 BOOLEAN,
                 gr10 BOOLEAN,
                 gr11 BOOLEAN,
