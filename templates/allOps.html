@@ -25,6 +25,9 @@
         <th scope="col">Grades</th>
         <th scope="col">Tags / Interests</th>
         <th scope="col">Description</th>
+        <th scope="col">Program Dates</th>
+        <th scope="col">Due Date</th>
+        <th scope="col">Date Posted</th>
       </tr>
     </thead>
     {% for item in op_list %}
@@ -50,6 +53,11 @@
           {% if item[11] %}<span class="badge badge-primary">scholarship</span>{% endif %}
         </td>
         <td><div style="overflow-y: scrollable;">{{item[12]}}</div></td>
+        <td><span class="badge badge-pill badge-success">{{item[22]}}</span> - 
+            <span class="badge badge-pill badge-danger">{{item[23]}}</span>
+        </td>
+        <td><span class="badge badge-pill badge-info">{{item[20]}}</span></td>
+        <td><span class="badge badge-pill badge-info">{{item[21]}}</span></td>
       {% endfor %}
     </tbody>
   </table>
