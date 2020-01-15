@@ -1,0 +1,73 @@
+{% extends "loggedin_base.html" %}
+
+{% block title %} Home {% endblock %}
+
+{% block body %}
+<table>
+  <!-- this should show the student opportunity bulletin -->
+</table>
+
+<a href="/allOps" class="btn btn-primary" role="button">Go Back</a>
+<!-- form to add new opportunity -->
+<center><h3>Edit Opportunity</h3></center>
+<form action="/addOpAuth" method="POST">
+  <label for="opid">Editing Opportunity</label>
+  <input type="number" name="opid" value={{opid}} readonly></input>
+  <br>
+  <label for="name"><strong>Name</strong><span style="color:red"> *Required</span></label>
+  <input type="text" name="name" value="{{op[1]}}" placeholder="Program Name or Position" required>
+  <br>
+  <label for="ints"><strong>Opportunity Tags</strong> (Ctrl+Click to select multiple)<span style="color:red"> *Required</span></label>
+  <br>
+  <select name="ints" multiple required>
+    <option value="events" {% if op[2] %} selected {% endif %}>General</option>
+    <option value="academic" {% if op[3] %} selected {% endif %}>Academic</option>
+    <option value="business" {% if op[4] %} selected {% endif %}>Business & Jobs</option>
+    <option value="community_service" {% if op[5] %} selected {% endif %}>Community Service</option>
+    <option value="leadership" {% if op[6] %} selected {% endif %}>Leadership, Government, Law, Advocacy, International</option>
+    <option value="museums" {% if op[7] %} selected {% endif %}>Museums and Art</option>
+    <option value="nature" {% if op[8] %} selected {% endif %}>Parks, Zoos, Nature</option>
+    <option value="stem" {% if op[9] %} selected {% endif %}>STEM Opportunities</option>
+    <option value="humanities" {% if op[10] %} selected {% endif %}>Theater, Writing, Performing Arts, Video</option>
+    <option value="scholarships" {% if op[11] %} selected {% endif %}>Scholarships</option>
+  </select>
+  <br>
+  <label for="des"><strong>Description</strong><span style="color:red"> *Required</span></label>
+  <br>
+  <textarea type="text" name="des" placeholder="Describe the opportunity..." rows="5" cols="75" value="{{op[12]}}"></textarea>
+  <br>
+  <label for="link"><strong>Link</strong></label>
+  <input type="text" name="link" {% if op[13] %}value="{{op[13]}}" {% endif %} placeholder="Program website">
+  <br>
+  <label for="cost"><strong>Cost</strong></label>
+  <input type="number" name="cost" {% if op[14] %}value="{{op[14]}}" {% endif %} placeholder="$">
+  <br>
+  <label for="grades"><strong>Grades Eligible</strong> (Ctrl+Click to select multiple)<span style="color:red"> *Required</span></label>
+  <br>
+  <select name="grades" multiple required>Grades Eligible
+    <option value="9" {% if op[15] %} selected {% endif %}>9</option>
+    <option value="10" {% if op[16] %} selected {% endif %}>10</option>
+    <option value="11" {% if op[17] %} selected {% endif %}>11</option>
+    <option value="12" {% if op[18] %} selected {% endif %}>12</option>
+  </select>
+  <br>
+  <label for="location"><strong>Location</strong></label>
+  <input name="location" {% if op[19] %}value="{{op[19]}}" {% endif %} placeholder="Address or Name">
+  <br>
+  <label for="duedate"><strong>Application/Registration Duedate</label>
+  <input name="duedate" type="date" value="{{op[20]}}" required>
+  <br>
+  <label for="start_date">Program Start Date</label>
+  <input name="start_date" type="date" value="{{op[22]}}" required>
+  <br>
+  <label for="end_date">Program End Date</label>
+  <input name="end_date" type="date" value="{{op[23]}}" required>
+  <br>
+  <label for="notes">Other Notes</label>
+  <input name="notes" {% if op[24] %}value="{{op[24]}}" {% endif %} type="test">
+  <br>
+  <br>
+  <input type="submit" name="edit-op-button" value="Submit">
+</form>
+
+{% endblock %}
