@@ -13,6 +13,7 @@ import sqlite3, os
 #from urllib.request import urlopen, Request
 # from utl import dbfunctions
 import dbfunctions
+from utl/fikter import relOps
 
 app = Flask(__name__)
 
@@ -176,8 +177,8 @@ def studentHome():
 @app.route("/myOps")
 def myOps():
     if checkAuth():
-        # should run a function first to sorts Ops
-        collection = dbfunctions.get("opportunities", "opid, name")
+        collection = relOps(session['username'])
+        # the problem is that this only returns the ids of oeach of the ops
         return render_template('myOps.html')
     return redirect(url_for('root'))
 
