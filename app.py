@@ -9,6 +9,7 @@
 from flask import Flask, render_template, redirect, url_for, session, flash, request
 import json, sys
 import sqlite3, os
+from datetime import datetime
 #import urllib.request as urlrequest
 #from urllib.request import urlopen, Request
 # from utl import dbfunctions
@@ -224,8 +225,16 @@ def addOpAuth():
             tw=True
     id = dbfunctions.createOp(c, request.form['name'], request.form['des'], n, te, e, tw)
     print(id)
+    #add interests individually
     for int in ints:
         dbfunctions.addInterest(c, id, int)
+    # add other optional fields to Opportunity
+    for key in request.form:
+        print(key)
+        if key != "create-op-button" and key != "ints" and key != "grades" and key != "name" and key != "des" and request.form[key]:
+            dbfunctions.updateOp(c, id, key, request.form[key])
+    #add date posted (today) to opportunity info
+    dbfunctions.updateOp(c, id, "posted", datetime.today().strftime('%Y-%m-%d'))
     db.commit()
     return redirect(url_for('adminHome'))
 
