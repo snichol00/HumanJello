@@ -1,20 +1,19 @@
-from __future__ import print_function
-import datetime
-import pickle
-import os.path
-from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
+# from __future__ import print_function
+# import datetime
+# import pickle
+# import os.path
+# from googleapiclient.discovery import build
+# from google_auth_oauthlib.flow import InstalledAppFlow
+# from google.auth.transport.requests import Request
 
 from flask import Flask, render_template, redirect, url_for, session, flash, request
 import json, sys
 import sqlite3, os
 from datetime import datetime
-import urllib.request as urlrequest
-from urllib.request import urlopen, Request
-# from utl import dbfunctions
+# import urllib.request as urlrequest
+# from urllib.request import urlopen, Request
 import dbfunctions
-from utl/fikter import relOps
+# from utl/fikter import relOps
 
 app = Flask(__name__)
 
@@ -188,7 +187,7 @@ def allOps():
     if checkAuth():
         collection = dbfunctions.getAllOps(c)
         print(collection)
-        return render_template('allOps.html', op_list = collection)
+        return render_template('allOps.html', op_list = collection, admin=isAdmin())
     return redirect(url_for('root'))
 
 @app.route('/adminHome')
@@ -224,7 +223,12 @@ def addOpAuth():
         if grade=="12":
             print(12)
             tw=True
-    id = dbfunctions.createOp(c, request.form['name'], request.form['des'], n, te, e, tw)
+    if "edit-op-button" in request.form.keys():
+        print(request.form)
+        id = request.form["opid"]
+        dbfunctions.editOp(c, id, request.form['name'], request.form['des'], n, te, e, tw)
+    else:
+        id = dbfunctions.createOp(c, request.form['name'], request.form['des'], n, te, e, tw)
     print(id)
     #add interests individually
     for int in ints:
@@ -232,12 +236,22 @@ def addOpAuth():
     # add other optional fields to Opportunity
     for key in request.form:
         print(key)
-        if key != "create-op-button" and key != "ints" and key != "grades" and key != "name" and key != "des" and request.form[key]:
+        if "op-button" not in key and key != "ints" and key != "grades" and key != "name" and key != "des" and request.form[key]:
             dbfunctions.updateOp(c, id, key, request.form[key])
     #add date posted (today) to opportunity info
     dbfunctions.updateOp(c, id, "posted", datetime.today().strftime('%Y-%m-%d'))
     db.commit()
     return redirect(url_for('adminHome'))
+
+@app.route("/editOpp/<id>")
+def editOpp(id):
+    cur = dbfunctions.getOp(c, id)
+    return render_template("edit_op.html", op=cur, opid=id)
+
+@app.route("/editOpAuth/<id>", methods=["POST"])
+def editOpAuth(id):
+    return "edited"
+
 
 @app.route("/logout")
 def logout():
