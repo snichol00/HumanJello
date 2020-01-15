@@ -1,19 +1,19 @@
-# from __future__ import print_function
-# import datetime
-# import pickle
-# import os.path
-# from googleapiclient.discovery import build
-# from google_auth_oauthlib.flow import InstalledAppFlow
-# from google.auth.transport.requests import Request
+from __future__ import print_function
+import datetime
+import pickle
+import os.path
+from googleapiclient.discovery import build
+from google_auth_oauthlib.flow import InstalledAppFlow
+from google.auth.transport.requests import Request
 
 from flask import Flask, render_template, redirect, url_for, session, flash, request
 import json, sys
 import sqlite3, os
 from datetime import datetime
-# import urllib.request as urlrequest
-# from urllib.request import urlopen, Request
+import urllib.request as urlrequest
+from urllib.request import urlopen, Request
 import dbfunctions
-# from utl/fikter import relOps
+from utl/fikter import relOps
 
 app = Flask(__name__)
 
@@ -192,11 +192,15 @@ def allOps():
 
 @app.route('/adminHome')
 def adminHome():
-    return render_template('adm_home.html')
+    if checkAuth() and isAdmin():
+        return render_template('adm_home.html')
+    return redirect(url_for('studentHome'))
 
 @app.route("/addOp")
 def addOp():
-    return render_template('add_op.html')
+    if checkAuth() and isAdmin():
+        return render_template('add_op.html')
+    return redirect(url_for('studentHome'))
 
 @app.route("/addOpAuth", methods=["POST"])
 def addOpAuth():
@@ -247,11 +251,6 @@ def addOpAuth():
 def editOpp(id):
     cur = dbfunctions.getOp(c, id)
     return render_template("edit_op.html", op=cur, opid=id)
-
-@app.route("/editOpAuth/<id>", methods=["POST"])
-def editOpAuth(id):
-    return "edited"
-
 
 @app.route("/logout")
 def logout():
