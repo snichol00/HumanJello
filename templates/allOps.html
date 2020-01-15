@@ -4,10 +4,13 @@
   {% for message in get_flashed_messages() %}
     {{message}}
   {% endfor %}
+
 {% endblock %}
 
-
 {% block body %}
+{% if admin %}<a href="/adminHome" class="btn btn-primary" role="button">Go Back</a>{% endif %}
+{% if not admin %}<a href="/studentHome" class="btn btn-primary" role="button">Go Back</a>{% endif %}
+<br>
 <div align="center">
   <form action="/action_page.php">
     <select name="cars">
@@ -18,13 +21,51 @@
 </form>
 <br>
   <h1> Opportunities </h1>
-  <ul>
-      {% for item in collection %}
-      <li>
-          <a href="{{ url_for('oppotunity', opid=item[0]) }}">{{ item[1] }}</a> <br> <br>
-      </li>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Opportunity Name</th>
+        <th scope="col">Grades</th>
+        <th scope="col">Tags / Interests</th>
+        <th scope="col">Description</th>
+        <th scope="col">Program Dates</th>
+        <th scope="col">Due Date</th>
+        <th scope="col">Date Posted</th>
+        {% if admin %}<th scope="col">Edit</th>{% endif %}
+      </tr>
+    </thead>
+    {% for item in op_list %}
+    <tbody>
+      <tr>
+        <th scope="row">{{item[1]}}</th>
+        <td>
+          {% if item[15] %}<span class="badge badge-primary">9</span>{% endif %}
+          {% if item[16] %}<span class="badge badge-primary">10</span>{% endif %}
+          {% if item[17] %}<span class="badge badge-primary">11</span>{% endif %}
+          {% if item[18] %}<span class="badge badge-primary">12</span>{% endif %}
+        </td>
+        <td>
+          {% if item[2] %}<span class="badge badge-primary">events</span>{% endif %}
+          {% if item[3] %}<span class="badge badge-primary">academic</span>{% endif %}
+          {% if item[4] %}<span class="badge badge-primary">business</span>{% endif %}
+          {% if item[5] %}<span class="badge badge-primary">community service</span>{% endif %}
+          {% if item[6] %}<span class="badge badge-primary">leadership</span>{% endif %}
+          {% if item[7] %}<span class="badge badge-primary">museums</span>{% endif %}
+          {% if item[8] %}<span class="badge badge-primary">nature</span>{% endif %}
+          {% if item[9] %}<span class="badge badge-primary">STEM</span>{% endif %}
+          {% if item[10] %}<span class="badge badge-primary">humanities</span>{% endif %}
+          {% if item[11] %}<span class="badge badge-primary">scholarship</span>{% endif %}
+        </td>
+        <td><div style="overflow-y: scrollable;">{{item[12]}}</div></td>
+        <td><span class="badge badge-pill badge-success">{{item[22]}}</span> -
+            <span class="badge badge-pill badge-danger">{{item[23]}}</span>
+        </td>
+        <td><span class="badge badge-pill badge-info">{{item[20]}}</span></td>
+        <td><span class="badge badge-pill badge-info">{{item[21]}}</span></td>
+        {% if admin %}<td><a href="/editOpp/{{item[0]}}" class="btn btn-danger" role="button">Edit</a></td>{% endif %}
       {% endfor %}
-  </ul>
+    </tbody>
+  </table>
   <br>
 </div>
 {% endblock %}

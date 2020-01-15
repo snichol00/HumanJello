@@ -8,9 +8,9 @@ nicholS -- 2020-1-5 22:38
 
 nicholS -- 2020-1-6 20:06
 - Revised design doc
-- made corrections to database tables (merged admins and users table)
-- clarified points where people were confused
-- revised formatting
+- merged the admin and users table into one table with a boolean to distinguish the admin
+- clarified how we would store the interests (by using strings, separating them with commas)
+- revised the examples so that the columns were more easily readable
 
 zhengJ -- 2020-1-7 14:34
 - researched Google Calendar API
@@ -80,3 +80,13 @@ pehlivanianL -- 2020-01-14 02:12
 zhengJ -- 2020-01-14 03:58
 - Added Google Calendar
 - Can add events to calendar
+
+pengW -- 2020-01-14 14:43
+- fix requirements.txt
+
+nicholS -- 2020-1-14 23:16
+- Added a function to filter the opportunities by interest in the myOps page, but needs to be implemented
+- Edited myOps.html to be in the same format as allOps
+- Fixed stu_home.html so that it would have buttons to go to myOps and allOps
+- Updated design doc by redoing the database tables and examples to reflect the changes we have made. Namely,
+    we separated the grades and interests into separate columns with booleans. I made a note to explain.

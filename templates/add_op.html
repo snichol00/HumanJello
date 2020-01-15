@@ -7,6 +7,8 @@
   <!-- this should show the student opportunity bulletin -->
 </table>
 
+<a href="/adminHome" class="btn btn-primary" role="button">Go Back</a>
+
 <!-- form to add new opportunity -->
 <h4>Add New Opportunity</h4>
 <form action="/addOpAuth" method="POST">
@@ -47,17 +49,17 @@
     <option value="12">12</option>
   </select>
   <br>
-  <label for="loc"><strong>Location</strong></label>
-  <input name="loc" placeholder="Address or Name">
+  <label for="location"><strong>Location</strong></label>
+  <input name="location" placeholder="Address or Name">
   <br>
   <label for="duedate"><strong>Application/Registration Duedate</label>
-  <input name="duedate" type="date">
+  <input name="duedate" type="date" required>
   <br>
   <label for="start_date">Program Start Date</label>
-  <input name="start_date" type="date">
+  <input name="start_date" type="date" required>
   <br>
   <label for="end_date">Program End Date</label>
-  <input name="end_date" type="date">
+  <input name="end_date" type="date" required>
   <br>
   <label for="notes">Other Notes</label>
   <input name="notes" type="test">

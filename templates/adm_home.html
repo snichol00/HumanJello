@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "loggedin_base.html" %}
 
 {% block title %} Home {% endblock %}
 {% block header %}
@@ -8,5 +8,16 @@
 {% endblock %}
 
 {% block body %}
-  <a href="/addOp">Add new Opportunity!</a>
+<table class="table">
+  <thead>
+    <tr>
+      <th scope="col">
+        <a href="/addOp">Add new Opportunity!</a>
+      </th>
+      <th scope="col">
+        <a href="/allOps">View All Opportunities!</a>
+      </th>
+    </tr>
+  </thead>
+</table>
 {% endblock %}

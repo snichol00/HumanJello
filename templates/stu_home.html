@@ -8,14 +8,22 @@
 
 
 {% block body %}
-  <h1 href= "/myOps">View my opportunities</h1>
-  <h1 href= "/allOps">See all opportunities</h1>
-  <h1>View account info</h1>
-  
+  <form action = "/myOps">
+    <input type = "submit" value = "View My Opportunities">
+  </form>
+
+  <form action = "/allOps">
+  <input type = "submit" value = "View All Opportunities">
+  </form>
+   <br>
+  <form action = "/studentHome">
+  <input type = "submit" value = "Account info">
+  </form>
+
   <form action = "/adminCalendar">
 	<input type = "submit" value = "Admin Calendar">
   </form>
-  
+
   <form action = "/addEvent">
 	<input type = "submit" value = "Add Event">
   </form>
