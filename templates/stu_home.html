@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "loggedin_base.html" %}
 
 {% block header %}
   {% for message in get_flashed_messages() %}
@@ -16,7 +16,7 @@
   <input type = "submit" value = "View All Opportunities">
   </form>
    <br>
-  <form action = "/studentHome">
+  <form action = "/stuAcc">
   <input type = "submit" value = "Account info">
   </form>
 
