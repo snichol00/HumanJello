@@ -90,3 +90,8 @@ nicholS -- 2020-1-14 23:16
 - Fixed stu_home.html so that it would have buttons to go to myOps and allOps
 - Updated design doc by redoing the database tables and examples to reflect the changes we have made. Namely,
     we separated the grades and interests into separate columns with booleans. I made a note to explain.
+
+nicholS -- 2020-1-15 23:16
+- Added roots for the OPPORTUNITIES pages
+- made a template to display opportunities details
+- tried to fix the sorting for myOps
