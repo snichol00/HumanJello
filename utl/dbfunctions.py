@@ -142,6 +142,10 @@ def getGrade(user):
     c.execute("SELECT grade FROM users WHERE username = ?;", (user, ))
     return c.fetchone()
 
+def getStuInfo(c, user):
+    c.execute("SELECT username, displayname, osis, email, grade FROM users WHERE username = ?;", (user, ))
+    return c.fetchone()
+
 #return whether or not the student has filled in basic info yet
 def studentInit(c, username):
     c.execute("SELECT * FROM users WHERE username = ?;", (username,))
@@ -156,10 +160,10 @@ def getStudentInts(c, username):
 
 def addStuInt(c, int, username):
     # print("UPDATE users SET %s = True WHERE username = %s" % (int, username))
-    c.execute("UPDATE users SET %s = True WHERE username = '%s';" % (int, username))
+    c.execute("UPDATE users SET %s = 1 WHERE username = '%s';" % (int, username))
 
 def delStuInt(c, int, username):
-    c.execute("UPDATE users SET %s = False WHERE username = '%s';" % (int, username))
+    c.execute("UPDATE users SET %s = 0 WHERE username = '%s';" % (int, username))
 
 #ADMIN FUNCTIONS-----------------------------
 def addAdmin(c, user, hashp, emailAcc):
