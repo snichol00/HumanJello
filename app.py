@@ -94,10 +94,10 @@ def register():
     if request.method == "POST":
         #determine if person registering was student or admin
         if 'adminCode' in request.form:
-            admin = True
-            register_route = 'studentacc'
+            admin = False
+            register_route = 'studacc'
         else:
-            admin=False
+            admin = True
             register_route = 'adminacc'
         username = request.form['username']
         password = request.form['password']
@@ -116,7 +116,7 @@ def register():
             return redirect(url_for(register_route))
         elif len(password) < 8:  # passwords must have a minimum length of 8
             flash("Password must be at least 8 characters in length")
-            return redirect(url_for(register_route))
+            return redirect(url_for(register_route), admin)
         #passwords do match
         else:  # successfully created an account
             if not admin:
@@ -380,6 +380,10 @@ def addEvent():
     }
     service.events().insert(calendarId = 'primary', body = EVENT).execute()
     return render_template("adminCalendar.html")
+
+@app.route('/forgotPass')
+def forgotPass():
+    return render_template('forgotPass.html')
 
 if __name__ == "__main__":
     app.debug = True
