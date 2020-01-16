@@ -223,7 +223,8 @@ def delOpp(id):
 def stuAcc():
     if checkAuth() and not isAdmin():
         user_ints = dbfunctions.getStudentInts(c, session['username'])
-        return render_template('stu_info.html', username=session['username'], interests=user_ints, ordered_ints=ORDERED_INTS)
+        user_info = dbfunctions.getStuInfo(c, session['username'])
+        return render_template('stu_info.html', username=session['username'], interests=user_ints, ordered_ints=ORDERED_INTS, info = user_info)
     return redirect(url_for('root'))
 
 @app.route("/delInt/<interest>")
