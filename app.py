@@ -13,6 +13,7 @@ from datetime import datetime
 # import urllib.request as urlrequest
 # from urllib.request import urlopen, Request
 import dbfunctions
+import filter
 # from utl/fikter import relOps
 
 app = Flask(__name__)
@@ -21,6 +22,8 @@ app.secret_key = os.urandom(32)
 
 DB_FILE = "HumanJello.db"
 ADMIN_CODE = "admin"
+ORDERED_INTS = [ "events", "academic","business", "community_service", "leadership", "museums", "nature", "stem", "humanities", "scholarships"]
+
 
 # If modifying these scopes, delete the file token.pickle.
 SCOPES = ['https://www.googleapis.com/auth/calendar.events']
@@ -174,13 +177,13 @@ def studentHome():
         return render_template('stu_home.html')
     return redirect(url_for('root'))
 
-@app.route("/myOps")
-def myOps():
-    if checkAuth():
-        collection = relOps(session['username'])
-        # the problem is that this only returns the ids of oeach of the ops
-        return render_template('myOps.html')
-    return redirect(url_for('root'))
+# @app.route("/myOps")
+# def myOps():
+#     if checkAuth():
+#         collection = relOps(session['username'])
+#         # the problem is that this only returns the ids of oeach of the ops
+#         return render_template('myOps.html')
+#     return redirect(url_for('root'))
 
 @app.route("/allOps")
 def allOps():
@@ -190,12 +193,60 @@ def allOps():
         return render_template('allOps.html', op_list = collection, admin=isAdmin())
     return redirect(url_for('root'))
 
+@app.route("/myOps")
+def myOps():
+    if checkAuth() and not isAdmin():
+        collection = dbfunctions.getAllOps(c)
+        print(collection)
+        i=0
+        while i < len(collection):
+            print(collection[i])
+            print("i: ", i, " | len: ", len(collection))
+            if not filter.isOpRel(collection[i][0], session['username']):
+                collection.pop(i)
+                print("removing ", i)
+                i = i-1
+            i = i+1
+        return render_template('allOps.html', op_list = collection, admin=False)
+
+@app.route("/delOpp/<id>")
+def delOpp(id):
+    if checkAuth() and isAdmin():
+        dbfunctions.deleteOp(c, id)
+        db.commit()
+    return redirect(url_for('allOps'))
+
+#STUDENT ACCOUNT INFO (interests, etc.)
+@app.route("/stuAcc")
+def stuAcc():
+    if checkAuth() and not isAdmin():
+        user_ints = dbfunctions.getStudentInts(c, session['username'])
+        return render_template('stu_info.html', username=session['username'], interests=user_ints, ordered_ints=ORDERED_INTS)
+    return redirect(url_for('root'))
+
+@app.route("/delInt/<interest>")
+def delInt(interest):
+    if checkAuth() and not isAdmin():
+        dbfunctions.delStuInt(c, interest, session['username'])
+        db.commit()
+        return redirect(url_for('stuAcc'))
+    return redirect(url_for('root'))
+
+@app.route("/addIntAuth", methods=["POST"])
+def addInt():
+    if checkAuth() and not isAdmin():
+        dbfunctions.addStuInt(c, request.form['ints'], session['username'])
+        db.commit()
+        return redirect(url_for('stuAcc'))
+    return redirect(url_for('root'))
+
 @app.route('/adminHome')
 def adminHome():
     if checkAuth() and isAdmin():
         return render_template('adm_home.html')
     return redirect(url_for('studentHome'))
 
+#ADMIN OPPORTUNITY ROUTES----------------
 @app.route("/addOp")
 def addOp():
     if checkAuth() and isAdmin():
