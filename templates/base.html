@@ -2,7 +2,7 @@
 <html>
 
   <head>
-    <title> Student Opportunity Board </title>
+    <title> {% block title %} Student Opportunity Board {% endblock %}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -13,7 +13,7 @@
       HumanJello
     </center>
   </header> -->
-  <body style = "background-color: #FFA781; color: #5B0E2D; text-align:center;">
+  <body style = "background-color: #85DCBA; color: #E27D60; text-align:center;">
     <h1>
       Student Opportunity Board
     </h1>
@@ -21,7 +21,7 @@
   </body>
   <footer>
     {% block footer %}
-    <p>&copy; Copyright 2019 Team HumanJello -- Sophie Nichol, Lauren Pehlivanian, Jason Zheng, Winston Peng</p>
+    <p style = "position: absolute; bottom: 0;">&copy; Copyright 2019 Team HumanJello -- Sophie Nichol, Lauren Pehlivanian, Jason Zheng, Winston Peng</p>
     {% endblock %}
   </footer>
 
