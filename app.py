@@ -95,10 +95,10 @@ def register():
         #determine if person registering was student or admin
         if 'adminCode' in request.form:
             admin = False
-            register_route = 'studacc'
+            register_route = 'adminacc'
         else:
             admin = True
-            register_route = 'adminacc'
+            register_route = 'studacc'
         username = request.form['username']
         password = request.form['password']
         password2 = request.form['password2']
