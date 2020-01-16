@@ -10,11 +10,12 @@ from flask import Flask, render_template, redirect, url_for, session, flash, req
 import json, sys
 import sqlite3, os
 from datetime import datetime
-from dbfunctions import get
+
 import urllib.request as urlrequest
 from urllib.request import urlopen, Request
-import dbfunctions
-import filter
+
+from utl import dbfunctions, filter
+from dbfunctions import get
 # from utl/fikter import relOps
 
 app = Flask(__name__)
