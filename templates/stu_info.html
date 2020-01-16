@@ -1,0 +1,39 @@
+{% extends "loggedin_base.html" %}
+
+{% block title %} Account Info for {{username}} {% endblock %}
+
+{% block body %}
+<center>
+  <h3>Manage Your Interests</h3>
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Your Interests</th>
+        <th scope="col">Add New Interest</th>
+      </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>
+        {% for i in range(interests|length)  %}
+            {% if interests[i] %}
+            <a href="/delInt/{{ordered_ints[i]}}" class="btn btn-danger"> {{ordered_ints[i]}}</a>
+
+            {% endif %}
+        {% endfor %}
+      </td>
+      <td>
+        <form action="/addIntAuth" method="POST">
+            <select name="ints" required>
+              {% for i in range(interests|length) %}
+                {% if not interests[i] %}<option value="{{ordered_ints[i]}}"> {{ordered_ints[i]}}</option>{% endif %}
+              {% endfor %}
+            </select>
+            <input type="submit" name="add-int-button" class="btn-success" value="Add Interest">
+        </form>
+      </td>
+      </tr>
+    </tbody>
+  </table>
+</center>
+{% endblock %}
