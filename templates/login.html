@@ -2,6 +2,8 @@
 
 {% block title %}Login{% endblock %}
 
+<!-- {% block navbar_logged_in %} {% endblock %} -->
+
 {% block body %}
 <center>
 	<h2>Login</h2>
@@ -10,19 +12,23 @@
 		<br>
 	{% endfor %}
 	<div style="width:100%">
-	<form action="/loginauth" method="POST">
-		<label for="username">Username</label>
-		<input type="text" name="username" required>
-		<br>
-		<label for="password">Password</label>
-		<input type="password" name="password" required>
-		<br>
-		<input type="submit" name="login-button" value="Log In">
-	</form>
-	<form action="/oof" method="POST">
-		<br>
-		<input type="submit" name="Forgot Password" value="Forgot Password">
-	</form>
+	  <form action="/loginauth" method="POST" style="width:50%;">
+      <div class="form-group">
+		    <label for="username">Username</label>
+		    <input type="text" class="form-control" name="username" required>
+      </div>
+      <div class="form-group">
+		    <label for="password">Password</label>
+		    <input type="password" class="form-control" name="password" required>
+      </div>
+      <button type="submit" class="btn btn-primary" value="Log In"> Login </button>
+	  </form>
+    <br>
+	  <form action="/oof" method="POST">
+      <button type="submit" class="btn btn-secondary" value="Forgot Password">
+        Forgot Password
+      </button>
+	  </form>
 	<br>
 	<p>Don't have an account? <a href="/">Sign Up</a></p>
 	</div>

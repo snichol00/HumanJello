@@ -1,13 +1,33 @@
 {% extends "base.html" %}
 
+{% block navbar_logged_in %} {% endblock %}
+
 {% block body %}
   <br>
-  <h2>Already have an account?</h2>
-  <h3><a style = "color: #6b02cc;" href="/login">Login</a></h3>
-  <br>
-  <h2>Make a new account:</h2>
-  <h3>I am a <a style = "color: #6b02cc;" href="/studentAccount">Student</a>.</h3>
-  <h3>I am an <a style = "color: #6b02cc;" href="/adminAccount">Admin</a>.</h3>
-  
+	<h2>Login</h2>
+	{% for message in get_flashed_messages() %}
+	<i>{{ message }}</i>
+	<br>
+	{% endfor %}
   <img style = "border-radius: 50%; max-width: 100%; height:auto;" src={{url_for('static', filename = 'home_Image.jpg')}}>
+  <br><br>
+  <center>
+	  <form action="/loginauth" method="POST" style="width:50%;">
+      <div class="form-group">
+		    <label for="username">Username</label>
+		    <input type="text" class="form-control" name="username" required>
+      </div>
+      <div class="form-group">
+		    <label for="password">Password</label>
+		    <input type="password" class="form-control" name="password" required>
+      </div>
+      <button type="submit" class="btn btn-primary" value="Log In"> Login </button>
+	  </form>
+    <br>
+	  <form action="/oof" method="POST">
+      <button type="submit" class="btn btn-secondary" value="Forgot Password">
+        Forgot Password
+      </button>
+	  </form>
+  </center>
 {% endblock %}

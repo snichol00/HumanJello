@@ -10,14 +10,41 @@
     {% block header %} {% endblock %}
   </head>
   <!-- <header>
-    <center>
-      HumanJello
-    </center>
-  </header> -->
-  <body style = "background-color: #85DCBA; color: #E27D60; text-align:center;">
-    <h1>
-      Student Opportunity Board
-    </h1>
+       </header> -->
+  <body style = "background-color: #FFA781; color: #5B0E2D; text-align:center;">
+    {% block navbar_logged_out %}
+    <div style="background-color:#ff8c00; padding:3px;">
+      <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar" >
+        <a class="nav-link" href="/">
+          Student Opportunities Bulletin
+        </a>
+        <ul class="navbar-nav flex-row ml-md-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="/studentAccount">Register as Student</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/adminAccount">Register as Admin</a>
+          </li>
+        </ul>
+        <a class="btn btn-bd-download d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3" href="/login">Login</a>
+      </header>
+    </div>
+    <br>
+      {% endblock %}
+      {% block navbar_logged_in %}
+      <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
+        <a class="nav-link" href="/">
+          Student Opportunities Bulletin
+        </a>
+        <div class="navbar-nav-scroll">
+          <ul class="navbar-nav bd-navbar-nav flex-row">
+            <li class="nav-item">
+              <a class="nav-link" href="/stu_home">Home</a>
+            </li>
+          </ul>
+        </div>
+      </header>
+    {% endblock %}
     {% block body %} {% endblock %}
   </body>
   <footer>
