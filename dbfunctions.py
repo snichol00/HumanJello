@@ -126,12 +126,21 @@ def getOp(c, id):
     c.execute("SELECT * FROM opportunities WHERE opid = ?;", (id, ))
     return c.fetchone()
 
+def deleteOp(c, id):
+    c.execute("DELETE FROM opportunities WHERE opid = ?;", (id, ))
+
 #STUDENT FUNCTIONS---------------------------
 def addStudent(c, user, hashp, disp, osisNum, emailAcc, gra, inter):
     c.execute("INSERT into users (username, hashpassword, displayname, osis, email, grade, interests, admin) VALUES(?, ?, ?, ?, ?, ?, ?, ?);", (user, hashp, disp, osisNum, emailAcc, gra, inter, False))
 
 def createStudent(c, user, hashp):
     c.execute("INSERT into users (username, hashpassword, admin) VALUES(?, ?, ?)", (user, hashp, False))
+
+def getGrade(user):
+    db = sqlite3.connect(DB_FILE) #open if file exists, otherwise create
+    c = db.cursor()
+    c.execute("SELECT grade FROM users WHERE username = ?;", (user, ))
+    return c.fetchone()
 
 #return whether or not the student has filled in basic info yet
 def studentInit(c, username):
@@ -140,6 +149,17 @@ def studentInit(c, username):
     if userinfo[0][3]:
         return True
     return False
+
+def getStudentInts(c, username):
+    c.execute("SELECT events,academic,business,community_service,leadership,museums,nature,stem,humanities, scholarships FROM users WHERE username = ?;", (username, ))
+    return c.fetchone()
+
+def addStuInt(c, int, username):
+    # print("UPDATE users SET %s = True WHERE username = %s" % (int, username))
+    c.execute("UPDATE users SET %s = True WHERE username = '%s';" % (int, username))
+
+def delStuInt(c, int, username):
+    c.execute("UPDATE users SET %s = False WHERE username = '%s';" % (int, username))
 
 #ADMIN FUNCTIONS-----------------------------
 def addAdmin(c, user, hashp, emailAcc):
