@@ -5,7 +5,7 @@ from re import search
 from numbers import Number
 # Flask Lib
 from flask import current_app, g
-from dbfunctions import get, getGrade
+from utl.dbfunctions import get, getGrade
 
 # should return all opportunities relevant to the user
 def relOps(username):
