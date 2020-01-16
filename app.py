@@ -15,7 +15,7 @@ import urllib.request as urlrequest
 from urllib.request import urlopen, Request
 
 from utl import dbfunctions, filter
-from dbfunctions import get
+from utl.dbfunctions import get
 # from utl/fikter import relOps
 
 app = Flask(__name__)
