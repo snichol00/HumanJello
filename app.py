@@ -191,6 +191,35 @@ def allOps():
         return render_template('allOps.html', op_list = collection, admin=isAdmin())
     return redirect(url_for('root'))
 
+#loads page to view opportunity details
+@app.route("/<opid>")
+def post(opid):
+    if checkAuth():
+        name = get("opportunities", "name", "WHERE opid = '%s'" % opid)[0][0]
+        ## need interests and grades
+        description = get("opportunities", "title", "WHERE opid = '%s'" % opid)[0][0]
+        link = get("opportunities", "link", "WHERE opid = '%s'" % opid)[0][0]
+        cost = get("opportunities", "cost", "WHERE opid = '%s'" % opid)[0][0]
+        location = get("opportunities", "location", "WHERE opid = '%s'" % opid)[0][0]
+        due_date = get("opportunities", "due_date", "WHERE opid = '%s'" % opid)[0][0]
+        posted = get("opportunities", "posted", "WHERE opid = '%s'" % opid)[0][0]
+        start_date = get("opportunities", "start_date", "WHERE opid = '%s'" % opid)[0][0]
+        end_date = get("opportunities", "end_date", "WHERE opid = '%s'" % opid)[0][0]
+        notes = get("opportunities", "notes", "WHERE opid = '%s'" % opid)[0][0]
+        return render_template(
+            "view_op.html",
+            name = name,
+            description = description,
+            link = link,
+            cost = cost,
+            location = location,
+            due_date = due_date,
+            posted = posted,
+            start_date = start_date,
+            end_date = end_date,
+            notes = notes
+        )
+
 @app.route('/adminHome')
 def adminHome():
     if checkAuth() and isAdmin():
