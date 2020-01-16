@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block header %}
+  {% for message in get_flashed_messages() %}
+    {{message}}
+  {% endfor %}
+{% endblock %}
+
+
+{% block body %}
+{% if admin %}<a href="/adminHome" class="btn btn-primary" role="button">Home</a>{% endif %}
+{% if not admin %}<a href="/studentHome" class="btn btn-primary" role="button">Home</a>{% endif %}
+<br>
+<div align="center">
+  <h2> {{ name }} </h2>
+      <br>
+      <p> Interests:   | Grades:  </p>
+      <br>
+      <italic> {{ description }} </italic>
+      <br>
+      <p> Cost: {{ cost }} </p>
+      <p> Location: {{ location }} </p>
+      <p> Application Due Date: {{ due_date }} </p>
+      <p> Cost: {{ cost }} </p>
+      <p> Time Frame: {{ start_date }} - {{ end_date }} </p>
+      <p> Additional Information: {{ link }} </p>
+      <p> Opportunity Posted: {{ posted }} </p>
+      <p> Additional Notes: {{ notes }} </p>
+</div>
+{% endblock %}

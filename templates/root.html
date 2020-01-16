@@ -1,13 +1,13 @@
 {% extends "base.html" %}
 
-{% block title %} Login {% endblock %}
-
 {% block body %}
   <br>
-  <h4>Already have an account?</h4>
-  <h5><a href="/login">Login</a>
+  <h2>Already have an account?</h2>
+  <h3><a style = "color: #6b02cc;" href="/login">Login</a></h3>
   <br>
-  <h4>Make a new account:</h4>
-  <h5>I am a <a href="/studentAccount">Student</a>.</h5>
-  <h5>I am an <a href="/adminAccount">Admin</a>.</h5>
+  <h2>Make a new account:</h2>
+  <h3>I am a <a style = "color: #6b02cc;" href="/studentAccount">Student</a>.</h3>
+  <h3>I am an <a style = "color: #6b02cc;" href="/adminAccount">Admin</a>.</h3>
+  
+  <img style = "border-radius: 50%; max-width: 100%; height:auto;" src={{url_for('static', filename = 'home_Image.jpg')}}>
 {% endblock %}

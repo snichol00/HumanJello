@@ -2,7 +2,7 @@
 <html>
 
   <head>
-    <title>{% block title %} {% endblock %} | Study Bullet </title>
+    <title> {% block title %} Student Opportunity Board {% endblock %}</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
@@ -14,42 +14,15 @@
       HumanJello
     </center>
   </header> -->
-  <body>
-    <header class="navbar navbar-expand navbar-dark flex-column flex-md-row bd-navbar">
-      Study Bullet
-      <div class="navbar-nav-scroll">
-        <!--
-    <ul class="navbar-nav bd-navbar-nav flex-row">
-      <li class="nav-item">
-        <a class="nav-link " href="/" onclick="ga('send', 'event', 'Navbar', 'Community links', 'Bootstrap');">Home</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link active" href="/docs/4.4/getting-started/introduction/" onclick="ga('send', 'event', 'Navbar', 'Community links', 'Docs');">Documentation</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link " href="/docs/4.4/examples/" onclick="ga('send', 'event', 'Navbar', 'Community links', 'Examples');">Examples</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="https://icons.getbootstrap.com/" onclick="ga('send', 'event', 'Navbar', 'Community links', 'Icons');">Icons</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="https://themes.getbootstrap.com/" onclick="ga('send', 'event', 'Navbar', 'Community links', 'Themes');" target="_blank" rel="noopener">Themes</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="https://expo.getbootstrap.com/" onclick="ga('send', 'event', 'Navbar', 'Community links', 'Expo');" target="_blank" rel="noopener">Expo</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="https://blog.getbootstrap.com/" onclick="ga('send', 'event', 'Navbar', 'Community links', 'Blog');" target="_blank" rel="noopener">Blog</a>
-      </li>
-    </ul>
-  -->
-      </div>
-    </header>
+  <body style = "background-color: #85DCBA; color: #E27D60; text-align:center;">
+    <h1>
+      Student Opportunity Board
+    </h1>
     {% block body %} {% endblock %}
   </body>
   <footer>
     {% block footer %}
-    <p>&copy; Copyright 2019 Team HumanJello -- Sophie Nichol, Lauren Pehlivanian, Jason Zheng, Winston Peng</p>
+    <p style = "position: absolute; bottom: 0;">&copy; Copyright 2019 Team HumanJello -- Sophie Nichol, Lauren Pehlivanian, Jason Zheng, Winston Peng</p>
     {% endblock %}
   </footer>
 
