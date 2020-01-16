@@ -193,7 +193,7 @@ def allOps():
 
 #loads page to view opportunity details
 @app.route("/<opid>")
-def post(opid):
+def view_op(opid):
     if checkAuth():
         name = get("opportunities", "name", "WHERE opid = '%s'" % opid)[0][0]
         ## need interests and grades

@@ -37,7 +37,7 @@
     {% for item in op_list %}
     <tbody>
       <tr>
-        <th scope="row">{{item[1]}}</th>
+        <th scope="row" href = "{{ url_for('view_op', opid=item[0]) }}">{{item[1]}}</th>
         <td>
           {% if item[15] %}<span class="badge badge-primary">9</span>{% endif %}
           {% if item[16] %}<span class="badge badge-primary">10</span>{% endif %}
