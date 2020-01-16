@@ -8,23 +8,30 @@
 
 
 {% block body %}
-  <form action = "/myOps">
+	<br>
+  <form style = "margin-bottom: 10px;" action = "/myOps">
     <input type = "submit" value = "View My Opportunities">
   </form>
 
   <form action = "/allOps">
   <input type = "submit" value = "View All Opportunities">
   </form>
-   <br>
-  <form action = "/stuAcc">
+   <br><br>
+  <form style = "margin-bottom: 10px;" action = "/stuAcc">
   <input type = "submit" value = "Account info">
   </form>
 
-  <form action = "/adminCalendar">
+  <form style = "margin-bottom: 10px;" action = "/adminCalendar">
 	<input type = "submit" value = "Admin Calendar">
   </form>
 
-  <form action = "/addEvent">
+  <form style = "margin-bottom: 10px;" action = "/addEvent">
 	<input type = "submit" value = "Add Event">
   </form>
+{% endblock %}
+
+{% block footer %}
+  <a href="/logout" class="btn btn-primary" role="button">Log Out</a>
+  <br><br>
+  <img style = "border-radius: 20%; max-width: 500px; height:auto;" src={{url_for('static', filename = 'opportunity.jpg')}}>
 {% endblock %}
