@@ -3,7 +3,35 @@
 {% block title %} Account Info for {{username}} {% endblock %}
 
 {% block body %}
-<a style="text-align: left;" href="/stuHome" class="btn btn-primary" role="button">Go Back</a>
+<a style="text-align: left;" href="/studentHome" class="btn btn-primary" role="button">Go Back</a>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-2">
+      <table class="table" style="background-color:white">
+        <tr>
+          <th>Username</th>
+          <td>{{info[0]}}</td>
+        </tr>
+        <tr>
+          <th>Name</th>
+          <td>{{info[1]}}</td>
+        </tr>
+        <tr>
+          <th>OSIS</th>
+          <td>{{info[2]}}</td>
+        </tr>
+        <tr>
+          <th>Email</th>
+          <td>{{info[3]}}</td>
+        </tr>
+        <tr>
+          <th>Grade</th>
+          <td>{{info[4]}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</div>
 <center>
   <h3>Manage Your Interests</h3>
   <table class="table">
