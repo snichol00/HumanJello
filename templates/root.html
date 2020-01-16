@@ -9,7 +9,6 @@
 	<i>{{ message }}</i>
 	<br>
 	{% endfor %}
-  <img style = "border-radius: 50%; max-width: 100%; height:auto;" src={{url_for('static', filename = 'home_Image.jpg')}}>
   <br><br>
   <center>
 	  <form action="/loginauth" method="POST" style="width:50%;">
@@ -29,5 +28,7 @@
         Forgot Password
       </button>
 	  </form>
+    <img style = "border-radius: 50%; max-width: 100%; height:auto;" src={{url_for('static', filename = 'home_Image.jpg')}}>
   </center>
+  <br>
 {% endblock %}
