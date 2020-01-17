@@ -2,9 +2,9 @@ from __future__ import print_function
 import datetime
 import pickle
 import os.path
-from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
+# from googleapiclient.discovery import build
+# from google_auth_oauthlib.flow import InstalledAppFlow
+# from google.auth.transport.requests import Request
 
 from flask import Flask, render_template, redirect, url_for, session, flash, request
 import json, sys
@@ -360,7 +360,7 @@ def addOpAuth():
     #add date posted (today) to opportunity info
     dbfunctions.updateOp(c, id, "posted", datetime.today().strftime('%Y-%m-%d'))
     db.commit()
-    
+
     creds = None
     if os.path.exists('token.pickle'):
         with open('token.pickle', 'rb') as token:
