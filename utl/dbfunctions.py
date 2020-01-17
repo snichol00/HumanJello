@@ -19,6 +19,7 @@ c = db.cursor()
 
 # setting up the database
 def setup():
+    # c.execute("DROP TABLE users;")
     c.execute("""CREATE TABLE IF NOT EXISTS users (
                 userid INTEGER PRIMARY KEY AUTOINCREMENT,
                 username TEXT UNIQUE NOT NULL,
@@ -37,7 +38,8 @@ def setup():
                 stem BOOLEAN,
                 humanities BOOLEAN,
                 scholarships BOOLEAN,
-                admin BOOLEAN
+                admin BOOLEAN,
+                saved TEXT
                 );""")
     c.execute("""CREATE TABLE IF NOT EXISTS opportunities (
                 opid INTEGER PRIMARY KEY,
@@ -168,6 +170,35 @@ def addStuInt(c, int, username):
 
 def delStuInt(c, int, username):
     c.execute("UPDATE users SET %s = 0 WHERE username = '%s';" % (int, username))
+
+#returns list of opids student has saved
+def getStuSavedOpids(c, username):
+    c.execute("SELECT saved FROM users WHERE username = ?;", (username, ))
+    saved = c.fetchone()[0]
+    if saved == None:
+        return []
+    out = saved.split(",")
+    print(saved, out)
+    return out
+
+#gets list of students saved interests
+def getStuSavedInts(c, username):
+    opids = getStuSavedOpids(c, username)
+    out = []
+    for opid in opids:
+        out.append(getOp(c, opid))
+    return out
+
+def stuSave(c, username, opid):
+    c.execute("SELECT saved FROM users WHERE username = ?;", (username, ))
+    saved = c.fetchone()[0]
+    print(saved)
+    if saved == None:
+        saved = str(opid)
+    else:
+        saved = saved + "," + str(opid)
+    print(saved)
+    c.execute("UPDATE users SET saved = ? WHERE username = ?;", (saved, username))
 
 #ADMIN FUNCTIONS-----------------------------
 def addAdmin(c, user, hashp, emailAcc):
