@@ -98,7 +98,7 @@ def createOp(c, name, des, nine, ten, elev, twel):
     return id[0]
 
 def editOp(c, id, name, des, nine, ten, elev, twel):
-    c.execute("UPDATE opportunities SET name = ?, description = ?, gr9 = ?, gr10 = ?, gr11 = ?, gr12 = ?;", (name, des, nine, ten, elev, twel))
+    c.execute("UPDATE opportunities SET name = ?, description = ?, gr9 = ?, gr10 = ?, gr11 = ?, gr12 = ? WHERE opid=?;", (name, des, nine, ten, elev, twel, id))
 
 
 def getInterests(c, id):
