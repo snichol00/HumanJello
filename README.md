@@ -25,7 +25,7 @@ We are creating an opportunities bulletin that will improve on the document that
   $ cd HumanJello
  
  3) Install the required packages\
-  $ pip install --user -r ./doc/requirements.txt
+  $ pip install -r ./doc/requirements.txt
   
  4) Run the flask app:\
   $ python3 app.py

@@ -8,14 +8,8 @@
 
 
 {% block body %}
-<div align="center">
-  <form action="/action_page.php">
-    <select name="cars">
-      <option value="duedate">Due Date</option>
-      <option value="posted">Most Recent</option>
-    </select>
-  <input type="submit">
-</form>
+<a href="/allOps" class="btn btn-primary" role="button">View All Opportunities</a>
+<br>
 <br>
   <h1> Your Saved Opportunities </h1>
   <table class="table">
@@ -31,35 +25,37 @@
         <th scope="col">Remove Opportunity</th>
       </tr>
     </thead>
-    {% for item in my_ops %}
     <tbody>
-      <tr>
-        <th scope="row"><a href = "/view/{{item[0]}}">{{item[1]}}</a></th>
-        <td>
-          {% if item[15] %}<span class="badge badge-primary">9</span>{% endif %}
-          {% if item[16] %}<span class="badge badge-primary">10</span>{% endif %}
-          {% if item[17] %}<span class="badge badge-primary">11</span>{% endif %}
-          {% if item[18] %}<span class="badge badge-primary">12</span>{% endif %}
-        </td>
-        <td>
-          {% if item[2] %}<span class="badge badge-primary">events</span>{% endif %}
-          {% if item[3] %}<span class="badge badge-primary">academic</span>{% endif %}
-          {% if item[4] %}<span class="badge badge-primary">business</span>{% endif %}
-          {% if item[5] %}<span class="badge badge-primary">community service</span>{% endif %}
-          {% if item[6] %}<span class="badge badge-primary">leadership</span>{% endif %}
-          {% if item[7] %}<span class="badge badge-primary">museums</span>{% endif %}
-          {% if item[8] %}<span class="badge badge-primary">nature</span>{% endif %}
-          {% if item[9] %}<span class="badge badge-primary">STEM</span>{% endif %}
-          {% if item[10] %}<span class="badge badge-primary">humanities</span>{% endif %}
-          {% if item[11] %}<span class="badge badge-primary">scholarship</span>{% endif %}
-        </td>
-        <td><div style="overflow-y: scrollable;">{{item[12]}}</div></td>
-        <td><span class="badge badge-pill badge-success">{{item[22]}}</span> -
-            <span class="badge badge-pill badge-danger">{{item[23]}}</span>
-        </td>
-        <td><span class="badge badge-pill badge-info">{{item[20]}}</span></td>
-        <td><span class="badge badge-pill badge-info">{{item[21]}}</span></td>
-        <td><a href="/unsaveOpp/{{item[0]}}" class="btn btn-success" role="button">Save</a></td>
+      {% for item in my_ops %}
+      {% if item %}
+        <tr>
+          <th scope="row"><a href = "/view/{{item[0]}}">{{item[1]}}</a></th>
+          <td>
+            {% if item[15] %}<span class="badge badge-primary">9</span>{% endif %}
+            {% if item[16] %}<span class="badge badge-primary">10</span>{% endif %}
+            {% if item[17] %}<span class="badge badge-primary">11</span>{% endif %}
+            {% if item[18] %}<span class="badge badge-primary">12</span>{% endif %}
+          </td>
+          <td>
+            {% if item[2] %}<span class="badge badge-primary">events</span>{% endif %}
+            {% if item[3] %}<span class="badge badge-primary">academic</span>{% endif %}
+            {% if item[4] %}<span class="badge badge-primary">business</span>{% endif %}
+            {% if item[5] %}<span class="badge badge-primary">community service</span>{% endif %}
+            {% if item[6] %}<span class="badge badge-primary">leadership</span>{% endif %}
+            {% if item[7] %}<span class="badge badge-primary">museums</span>{% endif %}
+            {% if item[8] %}<span class="badge badge-primary">nature</span>{% endif %}
+            {% if item[9] %}<span class="badge badge-primary">STEM</span>{% endif %}
+            {% if item[10] %}<span class="badge badge-primary">humanities</span>{% endif %}
+            {% if item[11] %}<span class="badge badge-primary">scholarship</span>{% endif %}
+          </td>
+          <td><div style="overflow-y: scrollable;">{{item[12]}}</div></td>
+          <td><span class="badge badge-pill badge-success">{{item[22]}}</span> -
+              <span class="badge badge-pill badge-danger">{{item[23]}}</span>
+          </td>
+          <td><span class="badge badge-pill badge-info">{{item[20]}}</span></td>
+          <td><span class="badge badge-pill badge-info">{{item[21]}}</span></td>
+          <td><a href="/unsaveOpp/{{item[0]}}" class="btn btn-danger" role="button">Remove</a></td>
+        {% endif %}
       {% endfor %}
     </tbody>
   </table>
@@ -105,10 +101,9 @@
         </td>
         <td><span class="badge badge-pill badge-info">{{item[20]}}</span></td>
         <td><span class="badge badge-pill badge-info">{{item[21]}}</span></td>
-        <td><a href="/saveOpp/{{item[0]}}" class="btn btn-success" role="button">Save</a></td>
+        <td><a href="/saveOpp/{{item[0]}}/myOps" class="btn btn-success" role="button">Save</a></td>
       {% endfor %}
     </tbody>
   </table>
   <br>
-</div>
 {% endblock %}

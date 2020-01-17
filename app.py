@@ -35,6 +35,7 @@ SCOPES = ['https://www.googleapis.com/auth/calendar.events']
 db = sqlite3.connect(DB_FILE, check_same_thread=False)
 c = db.cursor()  # facilitate db operations
 dbfunctions.setup()
+db.commit()
 
 @app.route("/")
 def root():
@@ -193,7 +194,12 @@ def allOps():
     if checkAuth():
         collection = dbfunctions.getAllOps(c)
         print(collection)
-        return render_template('allOps.html', op_list = collection , admin=isAdmin())
+        myOpids = dbfunctions.getStuSavedOpids(c, session['username'])
+        print("MY OPIDS: ", myOpids)
+        #change opids from strings to ints
+        for i in range(len(myOpids)):
+            myOpids[i] = int(myOpids[i] or 0)
+        return render_template('allOps.html', op_list = collection , my_opids =myOpids, admin=isAdmin())
     return redirect(url_for('root'))
 
 @app.route("/myOps")
@@ -201,6 +207,7 @@ def myOps():
     if checkAuth() and not isAdmin():
         collection = dbfunctions.getAllOps(c)
         print(collection)
+        #only keep relevant ops in collection
         i=0
         while i < len(collection):
             print(collection[i])
@@ -211,14 +218,25 @@ def myOps():
                 i = i-1
             i = i+1
         myOps = dbfunctions.getStuSavedInts(c, session['username'])
+        print(myOps)
         return render_template('myOps.html', op_list = collection, my_ops=myOps, admin=False)
+    return redirect(url_for('root'))
 
-@app.route("/saveOpp/<opid>")
-def saveOpp(opid):
+@app.route("/saveOpp/<opid>/<page>")
+def saveOpp(opid, page):
     if checkAuth() and not isAdmin():
         dbfunctions.stuSave(c, session['username'], opid)
         db.commit()
-    return redirect(url_for('allOps'))
+        return redirect(url_for(page))
+    return redirect(url_for('root'))
+
+@app.route("/unsaveOpp/<opid>")
+def unSaveOpp(opid):
+    if checkAuth() and not isAdmin():
+        dbfunctions.stuUnSave(c, session['username'], opid)
+        db.commit()
+        return redirect(url_for('myOps'))
+    return redirect(url_for('root'))
 
 #STUDENT ACCOUNT INFO (interests, etc.)
 @app.route("/stuAcc")
@@ -245,6 +263,13 @@ def addInt():
         return redirect(url_for('stuAcc'))
     return redirect(url_for('root'))
 
+@app.route("/changeGrade", methods=["POST"])
+def changeGrade():
+    if checkAuth() and not isAdmin():
+        dbfunctions.setGrade(c, session['username'], request.form['grade'])
+        db.commit()
+        return redirect(url_for('stuAcc'))
+    return redirect(url_for('root'))
 #loads page to view opportunity details
 @app.route("/view/<opid>")
 def view_op(opid):
@@ -335,7 +360,7 @@ def addOpAuth():
     #add date posted (today) to opportunity info
     dbfunctions.updateOp(c, id, "posted", datetime.today().strftime('%Y-%m-%d'))
     db.commit()
-    
+
     creds = None
     if os.path.exists('token.pickle'):
         with open('token.pickle', 'rb') as token:

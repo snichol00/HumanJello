@@ -17,8 +17,7 @@
 <div align="center">
   <h2> {{ name }} </h2>
       <br>
-      <p> Interests:</p>
-      <td>
+      <h4> Interests:</h4>
         {% if ints[0] %}<span class="badge badge-primary">events</span>{% endif %}
         {% if ints[1] %}<span class="badge badge-primary">academic</span>{% endif %}
         {% if ints[2] %}<span class="badge badge-primary">business</span>{% endif %}
@@ -29,24 +28,31 @@
         {% if ints[7] %}<span class="badge badge-primary">STEM</span>{% endif %}
         {% if ints[8] %}<span class="badge badge-primary">humanities</span>{% endif %}
         {% if ints[9] %}<span class="badge badge-primary">scholarship</span>{% endif %}
-      </td>
-      <p> Grades:  </p>
-      <td>
+      <br>
+      <h4> <br> Grades:  </h4>
         {% if grades[0] %}<span class="badge badge-primary">9</span>{% endif %}
         {% if grades[1] %}<span class="badge badge-primary">10</span>{% endif %}
         {% if grades[2] %}<span class="badge badge-primary">11</span>{% endif %}
         {% if grades[3] %}<span class="badge badge-primary">12</span>{% endif %}
-      </td>
       <br>
-      <italic> {{ description }} </italic>
+      <i> <br>{{ description }} <br></i>
       <br>
-      <p> Cost: {{ cost }} </p>
-      <p> Location: {{ location }} </p>
-      <p> Application Due Date: {{ due_date }} </p>
-      <p> Cost: {{ cost }} </p>
-      <p> Time Frame: {{ start_date }} - {{ end_date }} </p>
-      <p> Additional Information: {{ link }} </p>
-      <p> Opportunity Posted: {{ posted }} </p>
-      <p> Additional Notes: {{ notes }} </p>
+      <strong> Cost: </strong>{{ cost }}
+      <br>
+      <strong> Location: </strong>{{ location }}
+      <br>
+      <b> Application Due Date: </b>{{ due_date }}
+      <br>
+      <b> Time Frame: </b> {{ start_date }} - {{ end_date }}
+      <br>
+      {% if link %}
+        <b> <a href="{{ link }}">Additional Information</a></b>
+      {% else %}
+        No link given.
+      {% endif %}
+      <br>
+      <b> Opportunity Posted: </b>{{ posted }}
+      <br>
+      <b> Additional Notes: </b>{{ notes }}
 </div>
 {% endblock %}
