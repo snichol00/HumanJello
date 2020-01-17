@@ -8,30 +8,31 @@
     {{message}}
   {% endfor %}
 
-<!-- <script>
-     /*
-     var showOpps = function(e) {
-     var desc = document.getElementById("descriptions");
-     desc.innerHTML = document.getElementsByTagName("table")[0].rows[e].cells[3];
-     }
-
-     for(var i = 0; i < document.getElementsByTagName("table")[0].rows.length; i++) {
-     document.getElemementsByTagName("th")[i].addEventListener("mouseover", (i) => {showOpps});
-     }
-     */
-     </script> -->
 <script>
- var order = document.getElementById("order").value;
- var table = document.getElementsByTag("table")[0];
- if(order == "default") {
-     for(var i = 0; i < table.length; i++) {
-         document.getElementsByTag("tr")[i].
- } else if(order == "interest") {
-     document.getElementById("descriptions").innerHTML = "interest";
- } else if(order == "date") {
-     document.getElementById("descriptions").innerHTML == "date";
-}
+
+ var showOpps = function(e) {
+     var desc = document.getElementById("descriptions");
+     desc.innerHTML = e.innerHTML;
+ }
+
+ for(var i = 0; i < document.getElementsByClassName("desc").length; i++) {
+     document.getElementsByClassName("desc")[i].addEventListener("mouseover", () => {showOpps(this);});
+     document.getElementsByClassName("desc")[i].addEventListener("mouseout", () => {showOpps(this);});
+ }
+
 </script>
+<!-- <script>
+     var order = document.getElementById("order").value;
+     var table = document.getElementsByTagName("table")[0];
+     if(order == "default") {
+     for(var i = 0; i < table.rows.length; i++) {
+
+     } else if(order == "interest") {
+     document.getElementById("descriptions").innerHTML = "interest";
+     } else if(order == "date") {
+     document.getElementById("descriptions").innerHTML == "date";
+     }
+     </script> -->
 
 {% endblock %}
 
@@ -42,11 +43,11 @@
 <br>
 <div align="center">
   <h1> Opportunities </h1>
-  <select class="mdb-select md-form" id="order">
-    <option value="default">Default</option>
-    <option value="interest">Order By Interest</option>
-    <option value="date">Order By Due Date</option>
-  </select>
+  <!-- <select class="mdb-select md-form" id="order">
+       <option value="default">Default</option>
+       <option value="interest">Order By Interest</option>
+       <option value="date">Order By Due Date</option>
+       </select> -->
   <!-- <div class="dropdown show">
        <button class="btn btn-secondary dropdown-toggle" type="button" id="tableFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
        Opportunities
@@ -98,7 +99,7 @@
           {% if item[10] %}<span class="badge badge-primary">humanities</span>{% endif %}
           {% if item[11] %}<span class="badge badge-primary">scholarship</span>{% endif %}
         </td>
-        <td><div style="overflow-y: scrollable;">{{item[12]}}</div></td>
+        <td><div style="overflow-y: scrollable;" class="desc">{{item[12]}}</div></td>
         <td><span class="badge badge-pill badge-success">{{item[22]}}</span> -
             <span class="badge badge-pill badge-danger">{{item[23]}}</span>
         </td>
