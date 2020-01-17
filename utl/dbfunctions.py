@@ -118,7 +118,7 @@ def updateOp(c, id, field, new_val):
     c.execute("UPDATE opportunities SET %s = '%s' WHERE opid = %s;" % (field, new_val, id))
 
 def addInterest(c, id, interest):
-    c.execute("UPDATE opportunities SET %s = True WHERE opid = %s;" % (interest, id))
+    c.execute("UPDATE opportunities SET %s = 1 WHERE opid = %s;" % (interest, id))
 
 def insertOp(c, name, int, des, link, cost, gra, loc, due, start, end, notes):
     c.execute("INSERT into opportunities (name, interests, description, link, cost, grades, location, duedate, posted, start_date, end_date, notes) VALUES(?, ?);", (name, int, des, link, cost, gra, loc, due, datetime.now(), start, end, notes))
