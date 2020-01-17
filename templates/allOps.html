@@ -15,7 +15,7 @@
  }
 
  for(var i = 0; i < document.getElementByClass("table").rows.length; i++) {
-     document.getElemementByTag("th").addEventListener("onmouseover", (i) => {showOpps});
+     document.getElemementByTag("th").addEventListener("mouseover", (i) => {showOpps});
  }
 </script>
 
@@ -23,10 +23,8 @@
 
 {% block body %}
 {% if admin %}<a href="/adminHome" class="btn btn-primary" role="button">Go Back</a>{% endif %}
-{% if not admin %}<a href="/myOps" class="btn btn-primary" role="button">View Your Opportunities</a>{% endif %}
 <br>
 <div align="center">
-<br>
   <h1> Opportunities </h1>
   <span id="descriptions"></span>
   <table class="table">

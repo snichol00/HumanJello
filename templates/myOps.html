@@ -2,7 +2,9 @@
 
 {% block header %}
   {% for message in get_flashed_messages() %}
-    {{message}}
+    <div style="background-color:#ffaf4d">
+      {{message}}
+    </div>
   {% endfor %}
 {% endblock %}
 
