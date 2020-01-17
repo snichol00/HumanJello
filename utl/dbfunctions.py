@@ -106,6 +106,10 @@ def getInterests(c, id):
     print(arr)
     return arr
 
+def getGrades(c, id):
+    c.execute("SELECT gr9,gr10,gr11,gr12 FROM opportunities WHERE opid = ?;", (id, ))
+    return c.fetchone()
+
 #updates a field of opportunity based on id
 def updateOp(c, id, field, new_val):
     print("UPDATE opportunities SET %s = '%s' WHERE opid = %s;" % (field, new_val, id))
