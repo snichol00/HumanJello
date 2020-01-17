@@ -34,13 +34,15 @@
         {% if admin %}
         <th scope="col">Edit</th>
         <th scope="col">Delete</th>
+        {% else %}
+        <th scope="col">Save Opportunity</th>
         {% endif %}
       </tr>
     </thead>
     {% for item in op_list %}
     <tbody>
       <tr>
-        <th scope="row"><a href = "/{{item[0]}}">{{item[1]}}</a></th>
+        <th scope="row"><a href = "/view/{{item[0]}}">{{item[1]}}</a></th>
         <td>
           {% if item[15] %}<span class="badge badge-primary">9</span>{% endif %}
           {% if item[16] %}<span class="badge badge-primary">10</span>{% endif %}
@@ -68,6 +70,8 @@
         {% if admin %}
         <td><a href="/editOpp/{{item[0]}}" class="btn btn-warning" role="button">Edit</a></td>
         <td><a href="/delOpp/{{item[0]}}" class="btn btn-danger" role="button">Delete</a></td>
+        {% else %}
+        <td><a href="/saveOpp/{{item[0]}}" class="btn btn-success" role="button">Save</a></td>
         {% endif %}
       {% endfor %}
     </tbody>
