@@ -2,9 +2,9 @@ from __future__ import print_function
 import datetime
 import pickle
 import os.path
-from googleapiclient.discovery import build
-from google_auth_oauthlib.flow import InstalledAppFlow
-from google.auth.transport.requests import Request
+# from googleapiclient.discovery import build
+# from google_auth_oauthlib.flow import InstalledAppFlow
+# from google.auth.transport.requests import Request
 
 from flask import Flask, render_template, redirect, url_for, session, flash, request
 import json, sys
@@ -247,17 +247,21 @@ def addInt():
 @app.route("/<opid>")
 def view_op(opid):
     if checkAuth():
+        name = get("opportunities", "name", "WHERE opid = '%s'" % opid)
+        print(name)
         name = get("opportunities", "name", "WHERE opid = '%s'" % opid)[0][0]
         ## need interests and grades
-        description = get("opportunities", "title", "WHERE opid = '%s'" % opid)[0][0]
+        description = get("opportunities", "description", "WHERE opid = '%s'" % opid)[0][0]
         link = get("opportunities", "link", "WHERE opid = '%s'" % opid)[0][0]
         cost = get("opportunities", "cost", "WHERE opid = '%s'" % opid)[0][0]
         location = get("opportunities", "location", "WHERE opid = '%s'" % opid)[0][0]
-        due_date = get("opportunities", "due_date", "WHERE opid = '%s'" % opid)[0][0]
+        due_date = get("opportunities", "duedate", "WHERE opid = '%s'" % opid)[0][0]
         posted = get("opportunities", "posted", "WHERE opid = '%s'" % opid)[0][0]
         start_date = get("opportunities", "start_date", "WHERE opid = '%s'" % opid)[0][0]
         end_date = get("opportunities", "end_date", "WHERE opid = '%s'" % opid)[0][0]
         notes = get("opportunities", "notes", "WHERE opid = '%s'" % opid)[0][0]
+        interests = dbfunctions.getInterests(c, opid)
+        grades = dbfunctions.getGrades(c, opid)
         return render_template(
             "view_op.html",
             name = name,
@@ -269,7 +273,9 @@ def view_op(opid):
             posted = posted,
             start_date = start_date,
             end_date = end_date,
-            notes = notes
+            notes = notes,
+            ints= interests,
+            grades = grades
         )
 
 @app.route('/adminHome')
