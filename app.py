@@ -361,29 +361,29 @@ def addOpAuth():
     dbfunctions.updateOp(c, id, "posted", datetime.today().strftime('%Y-%m-%d'))
     db.commit()
 
-    creds = None
-    if os.path.exists('token.pickle'):
-        with open('token.pickle', 'rb') as token:
-            creds = pickle.load(token)
-    if not creds or not creds.valid:
-        if creds and creds.expired and creds.refresh_token:
-            creds.refresh(Request())
-        else:
-            flow = InstalledAppFlow.from_client_secrets_file(
-                'credentials.json', SCOPES)
-            creds = flow.run_local_server(port=0)
-        with open('token.pickle', 'wb') as token:
-            pickle.dump(creds, token)
-    service = build('calendar', 'v3', credentials=creds)
-    TIMEZONE = 'America/New_York'
-    EVENT = {
-        'summary': request.form['name'],
-        'start'  : {'dateTime': request.form['start_date'] + "T00:00:00",
-                    'timeZone': TIMEZONE},
-        'end'    : {'dateTime': request.form['end_date'] + "T00:00:00",
-                    'timeZone': TIMEZONE},
-    }
-    service.events().insert(calendarId = 'primary', body = EVENT).execute()
+    # creds = None
+    # if os.path.exists('token.pickle'):
+    #     with open('token.pickle', 'rb') as token:
+    #         creds = pickle.load(token)
+    # if not creds or not creds.valid:
+    #     if creds and creds.expired and creds.refresh_token:
+    #         creds.refresh(Request())
+    #     else:
+    #         flow = InstalledAppFlow.from_client_secrets_file(
+    #             'credentials.json', SCOPES)
+    #         creds = flow.run_local_server(port=0)
+    #     with open('token.pickle', 'wb') as token:
+    #         pickle.dump(creds, token)
+    # service = build('calendar', 'v3', credentials=creds)
+    # TIMEZONE = 'America/New_York'
+    # EVENT = {
+    #     'summary': request.form['name'],
+    #     'start'  : {'dateTime': request.form['start_date'] + "T00:00:00",
+    #                 'timeZone': TIMEZONE},
+    #     'end'    : {'dateTime': request.form['end_date'] + "T00:00:00",
+    #                 'timeZone': TIMEZONE},
+    # }
+    # service.events().insert(calendarId = 'primary', body = EVENT).execute()
     return redirect(url_for('adminHome'))
 
 @app.route("/editOpp/<id>")
