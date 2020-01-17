@@ -148,6 +148,9 @@ def getGrade(user):
     c.execute("SELECT grade FROM users WHERE username = ?;", (user, ))
     return c.fetchone()
 
+def setGrade(c, user, new_grade):
+    c.execute("UPDATE users SET grade = ? WHERE username = ?;", (new_grade, user))
+
 def getStuInfo(c, user):
     c.execute("SELECT username, displayname, osis, email, grade FROM users WHERE username = ?;", (user, ))
     return c.fetchone()
@@ -198,6 +201,20 @@ def stuSave(c, username, opid):
     else:
         saved = saved + "," + str(opid)
     print(saved)
+    c.execute("UPDATE users SET saved = ? WHERE username = ?;", (saved, username))
+
+def stuUnSave(c, username, opid):
+    c.execute("SELECT saved FROM users WHERE username=?;", (username, ))
+    saved = c.fetchone()[0]
+    print("OLD SAVED", saved)
+    saved = saved.replace(str(opid), "")
+    saved = saved.replace(",,",",") #if extra comma
+    if len(saved) > 1:
+        if saved[0] == ",":
+            saved = saved[1:]
+        if saved[-1] == ",":
+            saved = saved[0:-1]
+    print("NEW SAVED", saved)
     c.execute("UPDATE users SET saved = ? WHERE username = ?;", (saved, username))
 
 #ADMIN FUNCTIONS-----------------------------
