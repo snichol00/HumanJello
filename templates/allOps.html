@@ -5,6 +5,9 @@
     {{message}}
   {% endfor %}
 
+{% block navbar_admin %} {% endblock %}
+{% block navbar_logout %} {% endblock %}
+
 <script>
  var showOpps = function(e) {
      var desc = document.getElementById("descriptions");
@@ -12,7 +15,7 @@
  }
 
  for(var i = 0; i < document.getElementByClass("table").rows.length; i++) {
-     document.getElemementByTag("th").addEventListener("onmouseover", showOpps(i));
+     document.getElemementByTag("th").addEventListener("onmouseover", (i) => {showOpps});
  }
 </script>
 
