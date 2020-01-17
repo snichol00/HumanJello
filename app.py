@@ -94,10 +94,10 @@ def register():
     if request.method == "POST":
         #determine if person registering was student or admin
         if 'adminCode' in request.form:
-            admin = False
+            admin = True
             register_route = 'adminacc'
         else:
-            admin = True
+            admin = False
             register_route = 'studacc'
         username = request.form['username']
         password = request.form['password']
@@ -120,6 +120,7 @@ def register():
         #passwords do match
         else:  # successfully created an account
             if not admin:
+                print("creating stu acc")
                 dbfunctions.createStudent(c, username, password)
                 db.commit()
                 flash("Successfuly created user")
@@ -192,7 +193,7 @@ def allOps():
     if checkAuth():
         collection = dbfunctions.getAllOps(c)
         print(collection)
-        return render_template('allOps.html', op_list = collection, admin=isAdmin())
+        return render_template('allOps.html', op_list = collection , admin=isAdmin())
     return redirect(url_for('root'))
 
 @app.route("/myOps")
@@ -209,12 +210,13 @@ def myOps():
                 print("removing ", i)
                 i = i-1
             i = i+1
-        return render_template('allOps.html', op_list = collection, admin=False)
+        myOps = dbfunctions.getStuSavedInts(c, session['username'])
+        return render_template('myOps.html', op_list = collection, my_ops=myOps, admin=False)
 
-@app.route("/delOpp/<id>")
-def delOpp(id):
-    if checkAuth() and isAdmin():
-        dbfunctions.deleteOp(c, id)
+@app.route("/saveOpp/<opid>")
+def saveOpp(opid):
+    if checkAuth() and not isAdmin():
+        dbfunctions.stuSave(c, session['username'], opid)
         db.commit()
     return redirect(url_for('allOps'))
 
@@ -244,11 +246,9 @@ def addInt():
     return redirect(url_for('root'))
 
 #loads page to view opportunity details
-@app.route("/<opid>")
+@app.route("/view/<opid>")
 def view_op(opid):
     if checkAuth():
-        name = get("opportunities", "name", "WHERE opid = '%s'" % opid)
-        print(name)
         name = get("opportunities", "name", "WHERE opid = '%s'" % opid)[0][0]
         ## need interests and grades
         description = get("opportunities", "description", "WHERE opid = '%s'" % opid)[0][0]
@@ -277,6 +277,7 @@ def view_op(opid):
             ints= interests,
             grades = grades
         )
+    return render_template(url_for("root"))
 
 @app.route('/adminHome')
 def adminHome():
@@ -340,6 +341,13 @@ def addOpAuth():
 def editOpp(id):
     cur = dbfunctions.getOp(c, id)
     return render_template("edit_op.html", op=cur, opid=id)
+
+@app.route("/delOpp/<id>")
+def delOpp(id):
+    if checkAuth() and isAdmin():
+        dbfunctions.deleteOp(c, id)
+        db.commit()
+    return redirect(url_for('allOps'))
 
 @app.route("/logout")
 def logout():
