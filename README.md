@@ -16,6 +16,9 @@ We are creating an opportunities bulletin that will improve on the document that
   - We will use this to create a calendar that will list all application deadlines.
   - [https://docs.google.com/document/d/1atMCAui86AwBSWEz8lCIJFaNkUL4V5fwVecNcnxSpP0/edit]
   
+## Video Link:
+https://youtu.be/OmoZDhp1rRk
+  
 ## Launch Instructions:
 
  1) Clone repository with SSH key:\
@@ -25,7 +28,8 @@ We are creating an opportunities bulletin that will improve on the document that
   $ cd HumanJello
  
  3) Install the required packages\
-  $ pip install -r ./doc/requirements.txt
+  $ pip install -r ./doc/requirements.txt\
+  $ pip install --upgrade google-api-python-client google-auth-httplib2 google-auth-oauthlib
   
  4) Run the flask app:\
   $ python3 app.py
