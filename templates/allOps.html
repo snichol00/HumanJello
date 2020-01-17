@@ -9,16 +9,9 @@
 
 {% block body %}
 {% if admin %}<a href="/adminHome" class="btn btn-primary" role="button">Go Back</a>{% endif %}
-{% if not admin %}<a href="/studentHome" class="btn btn-primary" role="button">Go Back</a>{% endif %}
+{% if not admin %}<a href="/myOps" class="btn btn-primary" role="button">View Your Opportunities</a>{% endif %}
 <br>
 <div align="center">
-  <form action="/action_page.php">
-    <select name="cars">
-      <option value="duedate">Due Date</option>
-      <option value="posted">Most Recent</option>
-    </select>
-  <input type="submit">
-</form>
 <br>
   <h1> Opportunities </h1>
   <table class="table">
@@ -71,7 +64,11 @@
         <td><a href="/editOpp/{{item[0]}}" class="btn btn-warning" role="button">Edit</a></td>
         <td><a href="/delOpp/{{item[0]}}" class="btn btn-danger" role="button">Delete</a></td>
         {% else %}
-        <td><a href="/saveOpp/{{item[0]}}" class="btn btn-success" role="button">Save</a></td>
+          {% if item[0] not in my_opids %}
+            <td><a href="/saveOpp/{{item[0]}}/allOps" class="btn btn-success" role="button">Save</a></td>
+          {% else %}
+            <td>Already Saved.</td>
+          {% endif %}
         {% endif %}
       {% endfor %}
     </tbody>
