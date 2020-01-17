@@ -1,31 +1,62 @@
 {% extends "base.html" %}
 
+{% block navbar_admin %} {% endblock %}
+{% block navbar_logout %} {% endblock %}
+
 {% block header %}
   {% for message in get_flashed_messages() %}
     {{message}}
   {% endfor %}
 
-{% block navbar_admin %} {% endblock %}
-{% block navbar_logout %} {% endblock %}
-
-<script>
- var showOpps = function(e) {
+<!-- <script>
+     /*
+     var showOpps = function(e) {
      var desc = document.getElementById("descriptions");
-     desc.innerHTML = document.getElementByClass("table").rows[e].cells[3];
- }
+     desc.innerHTML = document.getElementsByTagName("table")[0].rows[e].cells[3];
+     }
 
- for(var i = 0; i < document.getElementByClass("table").rows.length; i++) {
-     document.getElemementByTag("th").addEventListener("mouseover", (i) => {showOpps});
- }
+     for(var i = 0; i < document.getElementsByTagName("table")[0].rows.length; i++) {
+     document.getElemementsByTagName("th")[i].addEventListener("mouseover", (i) => {showOpps});
+     }
+     */
+     </script> -->
+<script>
+ var order = document.getElementById("order").value;
+ var table = document.getElementsByTag("table")[0];
+ if(order == "default") {
+     for(var i = 0; i < table.length; i++) {
+         document.getElementsByTag("tr")[i].
+ } else if(order == "interest") {
+     document.getElementById("descriptions").innerHTML = "interest";
+ } else if(order == "date") {
+     document.getElementById("descriptions").innerHTML == "date";
+}
 </script>
 
 {% endblock %}
 
 {% block body %}
+<!--
 {% if admin %}<a href="/adminHome" class="btn btn-primary" role="button">Go Back</a>{% endif %}
+-->
 <br>
 <div align="center">
   <h1> Opportunities </h1>
+  <select class="mdb-select md-form" id="order">
+    <option value="default">Default</option>
+    <option value="interest">Order By Interest</option>
+    <option value="date">Order By Due Date</option>
+  </select>
+  <!-- <div class="dropdown show">
+       <button class="btn btn-secondary dropdown-toggle" type="button" id="tableFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+       Opportunities
+       </button>
+       <div class="dropdown-menu" aria-labelledby="tableFilter">
+       <a class="dropdown-item" href="#">Something Sweet</a>
+       <a class="dropdown-item" href="#">Something Scrumptious</a>
+       </div>
+       </div>
+  -->
   <span id="descriptions"></span>
   <table class="table">
     <thead>
@@ -78,7 +109,7 @@
         <td><a href="/delOpp/{{item[0]}}" class="btn btn-danger" role="button">Delete</a></td>
         {% else %}
           {% if item[0] not in my_opids %}
-            <td><a href="/saveOpp/{{item[0]}}/allOps" class="btn btn-success" role="button">Save</a></td>
+            <td><a href="/saveOpp/{{item[0]}}/allOps" class="btn btn-success save" role="button">Save</a></td>
           {% else %}
             <td>Already Saved.</td>
           {% endif %}
