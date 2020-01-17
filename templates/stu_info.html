@@ -4,10 +4,13 @@
 
 {% block body %}
 <a style="text-align: left;" href="/studentHome" class="btn btn-primary" role="button">Go Back</a>
+<br><br>
 <div class="container">
   <div class="row">
+    <div class="col-sm-2"></div>
+    <div class="col-sm-2"></div>
     <div class="col-sm-2">
-      <table class="table" style="background-color:white">
+      <table class="table" style="background-color:white" style="width: auto;">
         <tr>
           <th>Username</th>
           <td>{{info[0]}}</td>
@@ -26,7 +29,17 @@
         </tr>
         <tr>
           <th>Grade</th>
-          <td>{{info[4]}}</td>
+          <td>
+            <span class="badge badge-primary">{{info[4]}}</span>
+            <form action="/changeGrade" method="POST">
+                <select name="grade" required>
+                  {% for gr in range(9,13) %}
+                    {% if info[4] != gr %}<option type="number" value="{{gr}}"> {{gr}}</option>{% endif %}
+                  {% endfor %}
+                </select>
+                <input type="submit" name="add-int-button" class="btn-success" value="Update Grade">
+            </form>
+          </td>
         </tr>
       </table>
     </div>
