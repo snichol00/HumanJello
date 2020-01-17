@@ -5,6 +5,20 @@
     {{message}}
   {% endfor %}
 
+{% block navbar_admin %} {% endblock %}
+{% block navbar_logout %} {% endblock %}
+
+<script>
+ var showOpps = function(e) {
+     var desc = document.getElementById("descriptions");
+     desc.innerHTML = document.getElementByClass("table").rows[e].cells[3];
+ }
+
+ for(var i = 0; i < document.getElementByClass("table").rows.length; i++) {
+     document.getElemementByTag("th").addEventListener("onmouseover", (i) => {showOpps});
+ }
+</script>
+
 {% endblock %}
 
 {% block body %}
@@ -14,6 +28,7 @@
 <div align="center">
 <br>
   <h1> Opportunities </h1>
+  <span id="descriptions"></span>
   <table class="table">
     <thead>
       <tr>
