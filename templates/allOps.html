@@ -4,59 +4,46 @@
 {% block navbar_logout %} {% endblock %}
 
 {% block header %}
-  {% for message in get_flashed_messages() %}
-    {{message}}
-  {% endfor %}
+{% for message in get_flashed_messages() %}
+{{message}}
+{% endfor %}
 
-<script>
-
- var showOpps = function(e) {
-     var desc = document.getElementById("descriptions");
-     desc.innerHTML = e.innerHTML;
- }
-
- for(var i = 0; i < document.getElementsByClassName("desc").length; i++) {
-     document.getElementsByClassName("desc")[i].addEventListener("mouseover", () => {showOpps(this);});
-     document.getElementsByClassName("desc")[i].addEventListener("mouseout", () => {showOpps(this);});
- }
-
-</script>
 <!-- <script>
-     var order = document.getElementById("order").value;
-     var table = document.getElementsByTagName("table")[0];
-     if(order == "default") {
-     for(var i = 0; i < table.rows.length; i++) {
-
-     } else if(order == "interest") {
-     document.getElementById("descriptions").innerHTML = "interest";
-     } else if(order == "date") {
-     document.getElementById("descriptions").innerHTML == "date";
-     }
-     </script> -->
-
-{% endblock %}
-
-{% block body %}
-<!--
-{% if admin %}<a href="/adminHome" class="btn btn-primary" role="button">Go Back</a>{% endif %}
--->
-<br>
-<div align="center">
-  <h1> Opportunities </h1>
-  <!-- <select class="mdb-select md-form" id="order">
-       <option value="default">Default</option>
-       <option value="interest">Order By Interest</option>
-       <option value="date">Order By Due Date</option>
-       </select> -->
-  <!-- <div class="dropdown show">
-       <button class="btn btn-secondary dropdown-toggle" type="button" id="tableFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-       Opportunities
-       </button>
-       <div class="dropdown-menu" aria-labelledby="tableFilter">
-       <a class="dropdown-item" href="#">Something Sweet</a>
-       <a class="dropdown-item" href="#">Something Scrumptious</a>
-       </div>
-       </div>
+  var order = document.getElementById("order").value;
+  var table = document.getElementsByTagName("table")[0];
+  if(order == "default") {
+    for(var i = 0; i < table.rows.length; i++) {
+      
+    } else if(order == "interest") {
+      document.getElementById("descriptions").innerHTML = "interest";
+    } else if(order == "date") {
+      document.getElementById("descriptions").innerHTML == "date";
+    }
+  </script> -->
+  
+  {% endblock %}
+  
+  {% block body %}
+  <!--
+    {% if admin %}<a href="/adminHome" class="btn btn-primary" role="button">Go Back</a>{% endif %}
+  -->
+  <br>
+  <div align="center">
+    <h1> Opportunities </h1>
+    <select class="mdb-select md-form" id="order">
+      <option value="name">Order By Name</option>
+      <option value="interest">Order By Interest</option>
+      <option value="date">Order By Due Date</option>
+    </select>
+    <!-- <div class="dropdown show">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="tableFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Opportunities
+      </button>
+      <div class="dropdown-menu" aria-labelledby="tableFilter">
+        <a class="dropdown-item" href="#">Something Sweet</a>
+        <a class="dropdown-item" href="#">Something Scrumptious</a>
+      </div>
+    </div>
   -->
   <span id="descriptions"></span>
   <table class="table">
@@ -101,7 +88,7 @@
         </td>
         <td><div style="overflow-y: scrollable;" class="desc">{{item[12]}}</div></td>
         <td><span class="badge badge-pill badge-success">{{item[22]}}</span> -
-            <span class="badge badge-pill badge-danger">{{item[23]}}</span>
+          <span class="badge badge-pill badge-danger">{{item[23]}}</span>
         </td>
         <td><span class="badge badge-pill badge-info">{{item[20]}}</span></td>
         <td><span class="badge badge-pill badge-info">{{item[21]}}</span></td>
@@ -109,15 +96,18 @@
         <td><a href="/editOpp/{{item[0]}}" class="btn btn-warning" role="button">Edit</a></td>
         <td><a href="/delOpp/{{item[0]}}" class="btn btn-danger" role="button">Delete</a></td>
         {% else %}
-          {% if item[0] not in my_opids %}
-            <td><a href="/saveOpp/{{item[0]}}/allOps" class="btn btn-success save" role="button">Save</a></td>
-          {% else %}
-            <td>Already Saved.</td>
-          {% endif %}
+        {% if item[0] not in my_opids %}
+        <td><a href="/saveOpp/{{item[0]}}/allOps" class="btn btn-success save" role="button">Save</a></td>
+        {% else %}
+        <td>Already Saved.</td>
         {% endif %}
-      {% endfor %}
-    </tbody>
-  </table>
-  <br>
-</div>
-{% endblock %}
+        {% endif %}
+        {% endfor %}
+      </tbody>
+    </table>
+    <br>
+  </div>
+  
+  <script src="{{url_for('static', filename='organizeOps.js')}}"></script>
+  {% endblock %}
+  
