@@ -199,7 +199,8 @@ def allOps():
         #change opids from strings to ints
         for i in range(len(myOpids)):
             myOpids[i] = int(myOpids[i] or 0)
-        return render_template('allOps.html', op_list = collection , my_opids =myOpids, admin=isAdmin())
+        student_ints = dbfunctions.getStudentInts(c, session['username'])
+        return render_template('allOps.html', op_list=collection, my_opids=myOpids, admin=isAdmin(), stuints=student_ints)
     return redirect(url_for('root'))
 
 @app.route("/myOps")

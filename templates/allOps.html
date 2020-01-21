@@ -13,16 +13,16 @@
   var table = document.getElementsByTagName("table")[0];
   if(order == "default") {
     for(var i = 0; i < table.rows.length; i++) {
-      
+
     } else if(order == "interest") {
       document.getElementById("descriptions").innerHTML = "interest";
     } else if(order == "date") {
       document.getElementById("descriptions").innerHTML == "date";
     }
   </script> -->
-  
+
   {% endblock %}
-  
+
   {% block body %}
   <!--
     {% if admin %}<a href="/adminHome" class="btn btn-primary" role="button">Go Back</a>{% endif %}
@@ -31,6 +31,7 @@
   <div align="center">
     <h1> Opportunities </h1>
     <select class="mdb-select md-form" id="order">
+      <option selected hidden>No order</option>
       <option value="name">Order By Name</option>
       <option value="interest">Order By Interest</option>
       <option value="date">Order By Due Date</option>
@@ -45,7 +46,8 @@
       </div>
     </div>
   -->
-  <span id="descriptions"></span>
+  <span id="descriptions" style="color:red;"></span>
+  <span id="user_interests" hidden>{{ stuints }}</span>
   <table class="table">
     <thead>
       <tr>
@@ -107,7 +109,6 @@
     </table>
     <br>
   </div>
-  
+
   <script src="{{url_for('static', filename='organizeOps.js')}}"></script>
   {% endblock %}
-  
