@@ -23,7 +23,7 @@ console.log("die in hell");
 */
 
 //Goal: Sort element by getting
-var merge_sorth, merge_sort, merge, studentInterests, arrToHtml, htmlToArr;
+var merge_sorth, merge_sort, merge, studentInterests, arrToHtml, htmlCellToArr;
 var arrToInterests, libero, protean, swap, fakeenum;
 var order = document.getElementById("order").value;
 var table = document.getElementsByTagName("table")[0];
@@ -44,51 +44,57 @@ var user_interests = studentInterests(document.getElementById("user_interests")
                                       .innerText.slice(1, -1).split(", "));
 
 
-var merge_sorth = function(cell_num, compare) {
-    //l starts at one because row 0 is header
-    merge_sort(cell_num, compare, 1, rows.length);
-};
+// var merge_sorth = function(cell_num, compare) {
+//     //l starts at one because row 0 is header
+//     merge_sort(cell_num, compare, 1, rows.length);
+// };
 
-var merge_sort = function(cell_num, compare, l, r) {
-    if(l < r) {
-        var m = (l + r) / 2;
-        merge_sort(cell_num, compare, l, m);
-        merge_sort(cell_num, compare, m, r);
-        merge(cell_num, compare, l, m, r);
-    }
-};
+// var merge_sort = function(cell_num, compare, l, r) {
+//     if(l < r) {
+//         var m = (l + r) / 2;
+//         merge_sort(cell_num, compare, l, m);
+//         merge_sort(cell_num, compare, m, r);
+//         merge(cell_num, compare, l, m, r);
+//     }
+// };
 
-var merge = function(cell_num, compare, l, m, r) {
-    var i; var j; var k;
-    var n1 = m - l + 1;
-    var n2 = r - m;
-    var B; var E;
+// var merge = function(cell_num, compare, l, m, r) {
+//     var i; var j; var k;
+//     var n1 = m - l + 1;
+//     var n2 = r - m;
+//     var B; var E;
 
-    for(i = 0; i < n1; i++) B[i] = rows[i].cells[cell_num];
-    for(j = 0; j < n2; i++) E[i] = rows[i].cells[cell_num];
+//     for(i = 0; i < n1; i++) B[i] = rows[i].cells[cell_num];
+//     for(j = 0; j < n2; i++) E[i] = rows[i].cells[cell_num];
 
-    i = 0; j = 0; k = 0;
-    while(i < n1 && j < n2) {
-        if(compare(B[i].innerText, E[j].innerText)) {
-            rows[k].cells[cell_num].innerText = B[i].innerText;
-            k++; i++;
-        } else {
-            rows[k].cells[cell_num].innerText = E[j].innerText;
-            k++; j++;
-        }
-    }
+//     i = 0; j = 0; k = 0;
+//     while(i < n1 && j < n2) {
+//         if(compare(B[i].innerText, E[j].innerText)) {
+//             rows[k].cells[cell_num].innerText = B[i].innerText;
+//             k++; i++;
+//         } else {
+//             rows[k].cells[cell_num].innerText = E[j].innerText;
+//             k++; j++;
+//         }
+//     }
 
-    if(j < n1) {
-        for(; i < n1; i++) {
-            rows[k].cells[cell_num].innerText = B[i].innerText;
-            k++;
-        }
-    } else {
-        for(; j < n2; j++) {
-            rows[k].cells[cell_num].innerText = E[j].innerText;
-            k++;
-        }
-    }
+//     if(j < n1) {
+//         for(; i < n1; i++) {
+//             rows[k].cells[cell_num].innerText = B[i].innerText;
+//             k++;
+//         }
+//     } else {
+//         for(; j < n2; j++) {
+//             rows[k].cells[cell_num].innerText = E[j].innerText;
+//             k++;
+//         }
+//     }
+// };
+
+//The normal swap function didn't work for some reason
+var swap = function(a, b) {
+    //b = [a, a = b][0];
+    [a, b] = [b, a];
 };
 
 // var arrToInterests = function() {
@@ -106,14 +112,22 @@ var merge = function(cell_num, compare, l, m, r) {
 //     }
 // }
 
-var arrToHtml = function(cells_num, arr) {
+var arrToHtml = function(arr) {
     for(var i = 0; i < arr.length; i++) {
-        console.log(`${i}: ${arr[i].innerHTML}`)
-        rows[i + 1].cells[cells_num].innerHTML = arr[i].innerHTML;
+        console.log(`${i}: ${arr[i].innerText}`);
+        // [rows[i + 1].innerHTML, arr[i].innerHTML] = [arr[i].innerHTML, rows[i + 1].innerHTML];
+        rows[i + 1].innerHTML = arr[i].innerHTML;
     }
 };
 
-var htmlToArr = function(cells_num) {
+var htmlRowToArr = function() {
+    var ans = [];
+    for(var i = 1; i < rows.length; i++)
+        ans.push(rows[i]);
+    return ans;
+};
+
+var htmlCellToArr = function(cells_num) {
     var ans = [];
     for(var i = 1; i < rows.length; i++) {
         //ans.push(rows[i].cells[cells_num].innerText);
@@ -123,8 +137,8 @@ var htmlToArr = function(cells_num) {
 };
 
 var stringToInterests = function(interests) {
-    return interests.innerText.slice(1, -1).split(", ")
-}
+    return interests.innerText.slice(1, -1).split(", ");
+};
 
 var getNumInterests = function(a) {
     var ans = 0;
@@ -132,7 +146,7 @@ var getNumInterests = function(a) {
         if(user_interests.indexOf(stringToInterests(a)[i]) > 0) ans++;
     }
     return ans;
-}
+};
 
 // enums don't exist in js. These all correspond with cells[index] value
 var fakeenum = function(cell_desc) {
@@ -147,26 +161,31 @@ var fakeenum = function(cell_desc) {
     }
 };
 
+var sorted_arr;
 var protean = function() {
     console.log("Kecleon");
     order = document.getElementById("order").value;
     if(order == "name") {
-        var sorted_arr = htmlToArr(fakeenum("name")).sort(
-            (a, b) => {return a.innerText > b.innerText;}
-        );
-        arrToHtml(fakeenum("name"), sorted_arr);
+        sorted_arr = Object.assign({}, htmlRowToArr(fakeenum("name")).sort(
+            (a, b) => {
+                return a.cells[fakeenum("name")].innerText >
+                    b.cells[fakeenum("name")].innerText;
+            }
+        ));
+        arrToHtml(sorted_arr);
     } else if(order == "interest") {
-        var htmlElements = htmlToArr(fakeenum("interest")).sort(
+        // Object.create & Object.assign didn't work
+        sorted_arr = Object.create(htmlRowToArr(fakeenum("interest")).sort(
             (a, b) => {
                 getNumInterests(a) > getNumInterests(b);
             }
-        );
-        arrToHtml(htmlElements, htmlElements);
+        ));
+        arrToHtml(sorted_arr);
     } else if(order == "date") {
-        var sorted_arr = htmlToArr(fakeenum("date")).sort(
-            (a, b) => {return a.innerText > b.innerText;}
+        sorted_arr = htmlRowToArr(fakeenum("date")).sort(
+            (a, b) => {return a.cells[fakeenum("date")].innerText > b.cells[fakeenum("date")].innerText;}
         );
-        arrToHtml(fakeenum("date"), sorted_arr);
+        arrToHtml(sorted_arr);
     } else {
         document.getElementById("descriptions").innerText = "Error";
     }
@@ -189,12 +208,6 @@ var protean = function() {
 //             }
 //         );
 //     }
-// };
-
-// var swap = function(a, b) {
-//     var tmp = a;
-//     a = b;
-//     b = tmp;
 // };
 
 // document.getElementById("order").addEventListener("change", libero);
