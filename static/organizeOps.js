@@ -44,6 +44,19 @@ var user_interests = studentInterests(document.getElementById("user_interests")
                                       .innerText.slice(1, -1).split(", "));
 
 
+// enums don't exist in js. These all correspond with cells[index] value
+var fakeenum = function(cell_desc) {
+    if(cell_desc == "name") {
+        return 0;
+    } else if(cell_desc == "interest") {
+        return 2;
+    } else if(cell_desc == "date") {
+        return 5;
+    } else {
+        return -1;
+    }
+};
+
 // var merge_sorth = function(cell_num, compare) {
 //     //l starts at one because row 0 is header
 //     merge_sort(cell_num, compare, 1, rows.length);
@@ -113,8 +126,11 @@ var swap = function(a, b) {
 // }
 
 var arrToHtml = function(arr) {
+    // for(var i = 1; i < rows.length; i++) {
+    //     table.deleteRow(i);
+    // }
     for(var i = 0; i < arr.length; i++) {
-        console.log(`${i}: ${arr[i].innerText}`);
+        // console.log(`${i}: ${arr[i].innerText}`);
         // [rows[i + 1].innerHTML, arr[i].innerHTML] = [arr[i].innerHTML, rows[i + 1].innerHTML];
         rows[i + 1].innerHTML = arr[i].innerHTML;
     }
@@ -124,6 +140,8 @@ var htmlRowToArr = function() {
     var ans = [];
     for(var i = 1; i < rows.length; i++)
         ans.push(rows[i]);
+        //ans.push(Object.create(rows[i]));
+        //ans.push(Object.assign({}, rows[i]));
     return ans;
 };
 
@@ -148,47 +166,43 @@ var getNumInterests = function(a) {
     return ans;
 };
 
-// enums don't exist in js. These all correspond with cells[index] value
-var fakeenum = function(cell_desc) {
-    if(cell_desc == "name") {
-        return 0;
-    } else if(cell_desc == "interest") {
-        return 2;
-    } else if(cell_desc == "date") {
-        return 5;
+var sorted_arr;
+var dragapault = function(selected) {
+    if(selected == "name" || selected == 0) {
+        //sorted_arr = Object.assign({}, htmlRowToArr().sort(
+        sorted_arr = htmlRowToArr().sort(
+            (a, b) => {
+                return a.cells[fakeenum("name")].innerText.toUpperCase() >
+                    b.cells[fakeenum("name")].innerText.toUpperCase();
+            }
+        );
+    } else if(selected == "interest" || selected == 0) {
+        // Object.create & Object.assign didn't work
+        sorted_arr = Object.create(htmlRowToArr().sort(
+            (a, b) => {
+                return getNumInterests(a) > getNumInterests(b);
+            }
+        ));
+    } else if(selected == "date" || selected == 0) {
+        sorted_arr = htmlRowToArr().sort(
+            (a, b) => {
+                return a.cells[fakeenum("date")].innerText >
+                    b.cells[fakeenum("date")].innerText;
+            }
+        );
     } else {
+        document.getElementById("descriptions").innerText = "Error";
         return -1;
     }
+
+    return sorted_arr;
 };
 
-var sorted_arr;
 var protean = function() {
     console.log("Kecleon");
     order = document.getElementById("order").value;
-    if(order == "name") {
-        sorted_arr = Object.assign({}, htmlRowToArr(fakeenum("name")).sort(
-            (a, b) => {
-                return a.cells[fakeenum("name")].innerText >
-                    b.cells[fakeenum("name")].innerText;
-            }
-        ));
-        arrToHtml(sorted_arr);
-    } else if(order == "interest") {
-        // Object.create & Object.assign didn't work
-        sorted_arr = Object.create(htmlRowToArr(fakeenum("interest")).sort(
-            (a, b) => {
-                getNumInterests(a) > getNumInterests(b);
-            }
-        ));
-        arrToHtml(sorted_arr);
-    } else if(order == "date") {
-        sorted_arr = htmlRowToArr(fakeenum("date")).sort(
-            (a, b) => {return a.cells[fakeenum("date")].innerText > b.cells[fakeenum("date")].innerText;}
-        );
-        arrToHtml(sorted_arr);
-    } else {
-        document.getElementById("descriptions").innerText = "Error";
-    }
+    dragapault(order);
+    arrToHtml(sorted_arr);
 };
 
 // var libero = function() {
