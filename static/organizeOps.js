@@ -32,7 +32,7 @@ var arr_rows = Array.from(table.rows);
 
 var studentInterests = function(user_interests) {
     var student_interests = "events,academic,business,community_service,leadership,museums,nature,stem,humanities,scholarships".split(",");
-    console.log(student_interests);
+    // console.log(student_interests);
     var ans = [];
     for(var i = 0; i < student_interests.length; i++)
         if(user_interests[i] == "1")
@@ -174,17 +174,59 @@ var htmlCellToArr = function(cells_num) {
     return ans;
 };
 
+// Weird jank string manipulation b/c I was too lazy to figure out a better way
+// Basically, after reorganizing, rows[i].cells[2].innerText returns:
+/*
+
+
+
+  academic
+
+
+
+  STEM
+
+
+ */
+// To create list, you need to get rid of whitespace around with trim()
+// and get rid of whitespace within -- hence the bulky code
 var stringToInterests = function(interests) {
-    return interests.innerText.slice(1, -1).split(", ");
+    //return interests.innerText.slice(1, -1).split(", ");
+    var ans = interests.innerText.trim().split(" ");
+    for(var i = 0; i < ans.length; i++) {
+        if(ans[i] == "" || ans[i] == "\n") delete ans[i];
+    }
+    for(var i in ans)
+        ans[i] = ans[i].trim();
+    // var log = "";
+    // for(var i in ans)
+    //     log += ans[i] + " ";
+    // console.log(i);
+    return ans;
 };
+
+//Never actually used, but easier to type into debug console
+var stringToInterestsDebug = function(row_num) {
+    // var log = `${row_num}`;
+    // for(var i in stringToInterestsDebug(rows[row_num].cells[2])) {
+    //     log += ans[i] + " ";
+    // }
+    // console.log(log);
+    return stringToInterests(rows[row_num].cells[fakeenum("interest")]);
+}
 
 var getNumInterests = function(a) {
     var ans = 0;
-    for(var i = 0; i < stringToInterests(a).length; i++) {
-        if(user_interests.indexOf(stringToInterests(a)[i]) > 0) ans++;
+    // for(var i = 0; i < stringToInterests(a).length; i++) {
+    for(var i in stringToInterests(a)) {
+        if(user_interests.indexOf(stringToInterests(a)[i].toLowerCase()) > 0) ans++;
     }
     return ans;
 };
+
+var getNumInterestsDebug = function(row_num) {
+    return getNumInterests(rows[row_num].cells[fakeenum("interest")]);
+}
 
 var sorted_arr;
 var dragapault = function(selected) {
@@ -200,7 +242,8 @@ var dragapault = function(selected) {
         // Object.create & Object.assign didn't work
         sorted_arr = htmlRowToArr().sort(
             (a, b) => {
-                return getNumInterests(a) > getNumInterests(b);
+                return getNumInterests(a.cells[fakeenum("interest")]) <
+                    getNumInterests(b.cells[fakeenum("interest")]);
             }
         );
     } else if(selected == "date" || selected == 0) {

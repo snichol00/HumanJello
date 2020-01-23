@@ -21,34 +21,34 @@
      }
      </script> -->
 
-{% endblock %}
+  {% endblock %}
 
-{% block body %}
+  {% block body %}
 <!--     {% if admin %}<a href="/adminHome" class="btn btn-primary" role="button">Go Back</a>{% endif %} -->
-<br>
-<div align="center">
-  <h1> Opportunities </h1>
-  <select class="mdb-select md-form" id="order">
-    <option selected hidden>No order</option>
-    <option value="name">Order By Name</option>
-    <option value="interest">Order By Interest</option>
-    <option value="date">Order By Due Date</option>
-  </select>
-  <!-- <div class="dropdown show">
-       <button class="btn btn-secondary dropdown-toggle" type="button" id="tableFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-       Opportunities
-       </button>
-       <div class="dropdown-menu" aria-labelledby="tableFilter">
-       <a class="dropdown-item" href="#">Something Sweet</a>
-       <a class="dropdown-item" href="#">Something Scrumptious</a>
-       </div>
-       </div>
+  <br>
+  <div align="center">
+    <h1> Opportunities </h1>
+    <select class="mdb-select md-form" id="order">
+      <option selected hidden>No order</option>
+      <option value="name">Order By Name</option>
+      <option value="interest">Order By Interest</option>
+      <option value="date">Order By Due Date</option>
+    </select>
+    <!-- <div class="dropdown show">
+      <button class="btn btn-secondary dropdown-toggle" type="button" id="tableFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Opportunities
+      </button>
+      <div class="dropdown-menu" aria-labelledby="tableFilter">
+        <a class="dropdown-item" href="#">Something Sweet</a>
+        <a class="dropdown-item" href="#">Something Scrumptious</a>
+      </div>
+    </div>
   -->
-  <span id="descriptions" style="color:red;"></span>
-  <span id="user_interests" hidden>{{ stuints }}</span>
-  <div id="table_location">
-    <table class="table">
-      <thead>
+    <span id="descriptions" style="color:red;"></span>
+    <span id="user_interests" hidden>{{ stuints }}</span>
+    <div id="table_location">
+      <table class="table">
+        <thead>
         <tr>
           <th scope="col">Opportunity Name</th>
           <th scope="col">Grades</th>
@@ -107,8 +107,8 @@
         </tr>
       </tbody>
     </table>
+    </div>
   </div>
-</div>
 
-<script src="{{url_for('static', filename='organizeOps.js')}}"></script>
-{% endblock %}
+  <script src="{{url_for('static', filename='organizeOps.js')}}"></script>
+  {% endblock %}
