@@ -136,6 +136,26 @@ var arrToHtml = function(arr) {
     }
 };
 
+// This one is slow because it creates an entirely new table
+// As of now, arrToHtml is broken though
+var arrToHtmlSlow = function(arr) {
+    var body = document.getElementById("table_location");
+    var newtable = document.createElement("table");
+    newtable.setAttribute("class", "table");
+    var thead = document.createElement("thead");
+    thead.innerHTML = rows[0].innerHTML;
+    var tbody = document.createElement("tbody");
+
+    for(var i = 0; i < arr.length; i++) {
+        tbody.innerHTML += arr[i].innerHTML;
+    }
+    newtable.appendChild(thead);
+    newtable.appendChild(tbody);
+    body.appendChild(newtable);
+    table.parentNode.removeChild(table);
+    table = newtable;
+};
+
 var htmlRowToArr = function() {
     var ans = [];
     for(var i = 1; i < rows.length; i++)
@@ -178,11 +198,11 @@ var dragapault = function(selected) {
         );
     } else if(selected == "interest" || selected == 0) {
         // Object.create & Object.assign didn't work
-        sorted_arr = Object.create(htmlRowToArr().sort(
+        sorted_arr = htmlRowToArr().sort(
             (a, b) => {
                 return getNumInterests(a) > getNumInterests(b);
             }
-        ));
+        );
     } else if(selected == "date" || selected == 0) {
         sorted_arr = htmlRowToArr().sort(
             (a, b) => {
@@ -202,7 +222,8 @@ var protean = function() {
     console.log("Kecleon");
     order = document.getElementById("order").value;
     dragapault(order);
-    arrToHtml(sorted_arr);
+    //arrToHtml(sorted_arr);
+    arrToHtmlSlow(sorted_arr);
 };
 
 // var libero = function() {

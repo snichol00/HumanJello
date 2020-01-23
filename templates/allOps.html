@@ -9,104 +9,106 @@
 {% endfor %}
 
 <!-- <script>
-  var order = document.getElementById("order").value;
-  var table = document.getElementsByTagName("table")[0];
-  if(order == "default") {
-    for(var i = 0; i < table.rows.length; i++) {
+     var order = document.getElementById("order").value;
+     var table = document.getElementsByTagName("table")[0];
+     if(order == "default") {
+     for(var i = 0; i < table.rows.length; i++) {
 
-    } else if(order == "interest") {
-      document.getElementById("descriptions").innerHTML = "interest";
-    } else if(order == "date") {
-      document.getElementById("descriptions").innerHTML == "date";
-    }
-  </script> -->
+     } else if(order == "interest") {
+     document.getElementById("descriptions").innerHTML = "interest";
+     } else if(order == "date") {
+     document.getElementById("descriptions").innerHTML == "date";
+     }
+     </script> -->
 
-  {% endblock %}
+{% endblock %}
 
-  {% block body %}
+{% block body %}
 <!--     {% if admin %}<a href="/adminHome" class="btn btn-primary" role="button">Go Back</a>{% endif %} -->
-  <br>
-  <div align="center">
-    <h1> Opportunities </h1>
-    <select class="mdb-select md-form" id="order">
-      <option selected hidden>No order</option>
-      <option value="name">Order By Name</option>
-      <option value="interest">Order By Interest</option>
-      <option value="date">Order By Due Date</option>
-    </select>
-    <!-- <div class="dropdown show">
-      <button class="btn btn-secondary dropdown-toggle" type="button" id="tableFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-        Opportunities
-      </button>
-      <div class="dropdown-menu" aria-labelledby="tableFilter">
-        <a class="dropdown-item" href="#">Something Sweet</a>
-        <a class="dropdown-item" href="#">Something Scrumptious</a>
-      </div>
-    </div>
+<br>
+<div align="center">
+  <h1> Opportunities </h1>
+  <select class="mdb-select md-form" id="order">
+    <option selected hidden>No order</option>
+    <option value="name">Order By Name</option>
+    <option value="interest">Order By Interest</option>
+    <option value="date">Order By Due Date</option>
+  </select>
+  <!-- <div class="dropdown show">
+       <button class="btn btn-secondary dropdown-toggle" type="button" id="tableFilter" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+       Opportunities
+       </button>
+       <div class="dropdown-menu" aria-labelledby="tableFilter">
+       <a class="dropdown-item" href="#">Something Sweet</a>
+       <a class="dropdown-item" href="#">Something Scrumptious</a>
+       </div>
+       </div>
   -->
   <span id="descriptions" style="color:red;"></span>
   <span id="user_interests" hidden>{{ stuints }}</span>
-  <table class="table">
-    <thead>
-      <tr>
-        <th scope="col">Opportunity Name</th>
-        <th scope="col">Grades</th>
-        <th scope="col">Tags / Interests</th>
-        <th scope="col">Description</th>
-        <th scope="col">Program Dates</th>
-        <th scope="col">Due Date</th>
-        <th scope="col">Date Posted</th>
-        {% if admin %}
-        <th scope="col">Edit</th>
-        <th scope="col">Delete</th>
-        {% else %}
-        <th scope="col">Save Opportunity</th>
-        {% endif %}
-      </tr>
-    </thead>
-    {% for item in op_list %}
-    <tbody>
-      <tr>
-        <th scope="row"><a href = "/view/{{item[0]}}">{{item[1]}}</a></th>
-        <td>
-          {% if item[15] %}<span class="badge badge-primary">9</span>{% endif %}
-          {% if item[16] %}<span class="badge badge-primary">10</span>{% endif %}
-          {% if item[17] %}<span class="badge badge-primary">11</span>{% endif %}
-          {% if item[18] %}<span class="badge badge-primary">12</span>{% endif %}
-        </td>
-        <td>
-          {% if item[2] %}<span class="badge badge-primary">events</span>{% endif %}
-          {% if item[3] %}<span class="badge badge-primary">academic</span>{% endif %}
-          {% if item[4] %}<span class="badge badge-primary">business</span>{% endif %}
-          {% if item[5] %}<span class="badge badge-primary">community service</span>{% endif %}
-          {% if item[6] %}<span class="badge badge-primary">leadership</span>{% endif %}
-          {% if item[7] %}<span class="badge badge-primary">museums</span>{% endif %}
-          {% if item[8] %}<span class="badge badge-primary">nature</span>{% endif %}
-          {% if item[9] %}<span class="badge badge-primary">STEM</span>{% endif %}
-          {% if item[10] %}<span class="badge badge-primary">humanities</span>{% endif %}
-          {% if item[11] %}<span class="badge badge-primary">scholarship</span>{% endif %}
-        </td>
-        <td><div style="overflow-y: scrollable;" class="desc">{{item[12]}}</div></td>
-        <td><span class="badge badge-pill badge-success">{{item[22]}}</span> -
-          <span class="badge badge-pill badge-danger">{{item[23]}}</span>
-        </td>
-        <td><span class="badge badge-pill badge-info">{{item[20]}}</span></td>
-        <td><span class="badge badge-pill badge-info">{{item[21]}}</span></td>
-        {% if admin %}
-        <td><a href="/editOpp/{{item[0]}}" class="btn btn-warning" role="button">Edit</a></td>
-        <td><a href="/delOpp/{{item[0]}}" class="btn btn-danger" role="button">Delete</a></td>
-        {% else %}
-        {% if item[0] not in my_opids %}
-        <td><a href="/saveOpp/{{item[0]}}/allOps" class="btn btn-success save" role="button">Save</a></td>
-        {% else %}
-        <td>Already Saved.</td>
-        {% endif %}
-        {% endif %}
-        {% endfor %}
+  <div id="table_location">
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Opportunity Name</th>
+          <th scope="col">Grades</th>
+          <th scope="col">Tags / Interests</th>
+          <th scope="col">Description</th>
+          <th scope="col">Program Dates</th>
+          <th scope="col">Due Date</th>
+          <th scope="col">Date Posted</th>
+          {% if admin %}
+          <th scope="col">Edit</th>
+          <th scope="col">Delete</th>
+          {% else %}
+          <th scope="col">Save Opportunity</th>
+          {% endif %}
+        </tr>
+      </thead>
+      {% for item in op_list %}
+      <tbody>
+        <tr>
+          <th scope="row"><a href = "/view/{{item[0]}}">{{item[1]}}</a></th>
+          <td>
+            {% if item[15] %}<span class="badge badge-primary">9</span>{% endif %}
+            {% if item[16] %}<span class="badge badge-primary">10</span>{% endif %}
+            {% if item[17] %}<span class="badge badge-primary">11</span>{% endif %}
+            {% if item[18] %}<span class="badge badge-primary">12</span>{% endif %}
+          </td>
+          <td>
+            {% if item[2] %}<span class="badge badge-primary">events</span>{% endif %}
+            {% if item[3] %}<span class="badge badge-primary">academic</span>{% endif %}
+            {% if item[4] %}<span class="badge badge-primary">business</span>{% endif %}
+            {% if item[5] %}<span class="badge badge-primary">community service</span>{% endif %}
+            {% if item[6] %}<span class="badge badge-primary">leadership</span>{% endif %}
+            {% if item[7] %}<span class="badge badge-primary">museums</span>{% endif %}
+            {% if item[8] %}<span class="badge badge-primary">nature</span>{% endif %}
+            {% if item[9] %}<span class="badge badge-primary">STEM</span>{% endif %}
+            {% if item[10] %}<span class="badge badge-primary">humanities</span>{% endif %}
+            {% if item[11] %}<span class="badge badge-primary">scholarship</span>{% endif %}
+          </td>
+          <td><div style="overflow-y: scrollable;" class="desc">{{item[12]}}</div></td>
+          <td><span class="badge badge-pill badge-success">{{item[22]}}</span> -
+            <span class="badge badge-pill badge-danger">{{item[23]}}</span>
+          </td>
+          <td><span class="badge badge-pill badge-info">{{item[20]}}</span></td>
+          <td><span class="badge badge-pill badge-info">{{item[21]}}</span></td>
+          {% if admin %}
+          <td><a href="/editOpp/{{item[0]}}" class="btn btn-warning" role="button">Edit</a></td>
+          <td><a href="/delOpp/{{item[0]}}" class="btn btn-danger" role="button">Delete</a></td>
+          {% else %}
+          {% if item[0] not in my_opids %}
+          <td><a href="/saveOpp/{{item[0]}}/allOps" class="btn btn-success save" role="button">Save</a></td>
+          {% else %}
+          <td>Already Saved.</td>
+          {% endif %}
+          {% endif %}
+          {% endfor %}
+        </tr>
       </tbody>
     </table>
-    <br>
   </div>
+</div>
 
-  <script src="{{url_for('static', filename='organizeOps.js')}}"></script>
-  {% endblock %}
+<script src="{{url_for('static', filename='organizeOps.js')}}"></script>
+{% endblock %}
