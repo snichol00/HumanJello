@@ -26,4 +26,23 @@
 		<input type = "submit" value = "Submit">
 	</form>
 	
+	<h1> Getting the upcoming 10 events </h1>
+	<ol id = "stuEvents">
+	{% for event in stuEvents %}
+	<li> {{event['start'].get('dateTime', event['start'].get('date'))|e}} 
+	{{event['summary']|e}}</li>
+	{% endfor %}
+	</ol>
+	<button id="events">Submit Here</button>
+	<script 
+	var addEvent = function(e) {
+		console.log(e);
+		var list = document.getElementById("stuEvents");
+		var item = document.createElement("li");
+		item.innerHTML = "???";
+		list.append(item);
+	}
+	var events = document.getElementById("events");
+	events.addEventListener("click", addEvent);
+	</script>
 {% endblock %}
